@@ -4,19 +4,21 @@ using UnityEngine;
 
 public class PlaneSpCube : MonoBehaviour
 {
-    int x = 0, y = 0, z = 0, limit;
+    int x = 0, y = 0, z = 0, limit = 0, sCount;
+    public GameObject CubeCubeCube;
     void Start()
     {
-        limit = 0;
     }
 
     void FixedUpdate()
     {
-        if(limit !=5)
+       
+        if (limit != 5)
         {
-            Instantiate(new GameObject("CubeCubeCube"), new Vector3(x, y, z), Quaternion.identity);
+            Instantiate(CubeCubeCube, new Vector3(x, y, z), Quaternion.identity);
             limit++;
             x++;
+            y++;
         }
     }
 }
