@@ -13,9 +13,9 @@ public class controls : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        forward = Input.GetKeyDown(KeyCode.W);
-        back = Input.GetKeyDown(KeyCode.S);
-        rotLeft = Input.GetKeyDown(KeyCode.A);
-        rotRight = Input.GetKeyDown(KeyCode.D);
+        forward = Input.GetKey(KeyCode.W);
+        back = Input.GetKey(KeyCode.S);
+        rotLeft = Input.GetKey(KeyCode.A);
+        rotRight = Input.GetKey(KeyCode.D);
     }
 }
