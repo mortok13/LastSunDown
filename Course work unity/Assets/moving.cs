@@ -7,7 +7,6 @@ public class moving : MonoBehaviour
     // public Vector3 PlayerPosition;
     public Rigidbody PlayerRB;
     private float speed,x,y,z;
-    private Quaternion rotationLeft()
     void Start()
     {
         speed = 0;
@@ -33,9 +32,9 @@ public class moving : MonoBehaviour
         {
             PlayerRB.AddForce(transform.forward * (-2));
         }
-        if(controls.rotLeft)
-        {
-            transform.rotation()
-        }
+        // if(controls.rotLeft)
+        // {
+        //     transform.rotation()
+        // }
     }
 }
