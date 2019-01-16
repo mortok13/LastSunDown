@@ -6,6 +6,8 @@ public class moving : MonoBehaviour
 {
     // public Vector3 PlayerPosition;
     public Rigidbody PlayerRB;
+    public GameObject backwheel;
+    public GameObject frontwheel;
     private float speed,x,y,z;
     void Start()
     {
@@ -26,10 +28,14 @@ public class moving : MonoBehaviour
         Debug.Log("Body position:"+ transform.position);
         if(controls.forward)
         {
+            backwheel.transform.Rotate(1,0,0, Space.Self);
+            frontwheel.transform.Rotate(1,0,0, Space.Self);
             PlayerRB.AddForce(transform.forward * 2);
         }
         if(controls.back)
         {
+            backwheel.transform.Rotate(-1,0,0, Space.Self);
+            frontwheel.transform.Rotate(-1,0,0, Space.Self);
             PlayerRB.AddForce(transform.forward * (-2));
         }
         // if(controls.rotLeft)
