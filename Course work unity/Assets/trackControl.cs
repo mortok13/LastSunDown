@@ -7,7 +7,6 @@ public class trackControl : MonoBehaviour
     
     [SerializeField]
     private GameObject[] elements;
-    ;
     void Start()
     {
     }
