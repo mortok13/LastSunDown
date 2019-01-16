@@ -3,34 +3,27 @@ guid: 7ee4eaccedc84ed42b46658fc739c2ae
 ModelImporter:
   serializedVersion: 23
   fileIDToRecycleName:
-    100000: backwheel
-    100002: Carkace
-    100004: frontwheel
-    100006: Motorbike:pPlane10
-    100008: //RootNode
-    100010: Stearing_wheel
-    400000: backwheel
-    400002: Carkace
-    400004: frontwheel
-    400006: Motorbike:pPlane10
-    400008: //RootNode
-    400010: Stearing_wheel
+    100000: BackWheel
+    100002: Front_wheel
+    100004: //RootNode
+    100006: Stearing_wheel
+    400000: BackWheel
+    400002: Front_wheel
+    400004: //RootNode
+    400006: Stearing_wheel
     2100000: Motorbike_initialShadingGroup1
-    2300000: backwheel
-    2300002: Carkace
-    2300004: frontwheel
-    2300006: Motorbike:pPlane10
-    2300008: Stearing_wheel
-    3300000: backwheel
-    3300002: Carkace
-    3300004: frontwheel
-    3300006: Motorbike:pPlane10
-    3300008: Stearing_wheel
-    4300000: Motorbike:pPlane10
-    4300002: Carkace
-    4300004: Stearing_wheel
-    4300006: frontwheel
-    4300008: backwheel
+    2300000: BackWheel
+    2300002: Front_wheel
+    2300004: //RootNode
+    2300006: Stearing_wheel
+    3300000: BackWheel
+    3300002: Front_wheel
+    3300004: //RootNode
+    3300006: Stearing_wheel
+    4300000: Carkace
+    4300002: Stearing_wheel
+    4300004: Front_wheel
+    4300006: BackWheel
   externalObjects:
   - first:
       type: UnityEngine:Material
