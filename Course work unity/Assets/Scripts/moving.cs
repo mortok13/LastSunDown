@@ -25,7 +25,7 @@ public class moving : MonoBehaviour
 
     void FixedUpdate()
     {
-        Debug.Log("Body position:"+ transform.position);
+        //Debug.Log("Body position:"+ transform.position);
         if(controls.forward)
         {
             backwheel.transform.Rotate(1,0,0, Space.Self);
