@@ -7,16 +7,14 @@ public class moving : MonoBehaviour
     // public Vector3 PlayerPosition;
     public Rigidbody PlayerRB;
     public GameObject backwheel;
-    public GameObject CoM;
     public GameObject frontwheel;
-    private float speed,x,y,z;
+    //private float speed,x,y,z;
     void Start()
-    { 
-        PlayerRB.centerOfMass = CoM.transform.localPosition;
-        speed = 0;
-        x = 0;
-        y = 0;
-        z = 0;
+    {
+        // speed = 0;
+        // x = 0;
+        // y = 0;
+        // z = 0;
         PlayerRB = GetComponent<Rigidbody>();
     }
 
@@ -32,7 +30,7 @@ public class moving : MonoBehaviour
         {
             backwheel.transform.Rotate(1,0,0, Space.Self);
             frontwheel.transform.Rotate(1,0,0, Space.Self);
-            PlayerRB.AddForce(transform.forward * 50);
+            PlayerRB.AddForce(transform.forward * 20);
         }
         if(controls.back)
         {
