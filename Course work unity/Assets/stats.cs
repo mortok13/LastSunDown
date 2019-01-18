@@ -13,7 +13,7 @@ public class stats : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log(isInAir);
+        //Debug.Log(isInAir);
     }
     void OnCollisionStay(Collision other)
     {

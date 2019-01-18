@@ -802,7 +802,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 96
+  m_Constraints: 104
   m_CollisionDetection: 0
 --- !u!114 &1088843629
 MonoBehaviour:
@@ -816,8 +816,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 294ee22ac485eb249b3d4c3a563a9f1f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  FFVector: {fileID: 0}
-  BFVector: {fileID: 0}
+  FlipVector: {x: 0.0003043117, y: -0.0203807, z: 0.05589584}
   backwheel: {fileID: 1876124473}
   frontwheel: {fileID: 1664519200}
 --- !u!114 &1088843630
@@ -1543,7 +1542,7 @@ SphereCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.020135395
+  m_Radius: 0.0201
   m_Center: {x: -2.328307e-10, y: -0.000000007450581, z: 0.000000011175871}
 --- !u!146 &1664519205
 WheelCollider:
@@ -1553,7 +1552,7 @@ WheelCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1664519200}
   m_Center: {x: 0, y: 0, z: 0}
-  m_Radius: 0.0202
+  m_Radius: 0.0201
   m_SuspensionSpring:
     spring: 35000
     damper: 4500
@@ -1649,7 +1648,7 @@ SphereCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.020134496
+  m_Radius: 0.0201
   m_Center: {x: -5.551115e-17, y: -0.000000014901161, z: -0.000000006519258}
 --- !u!146 &1876124478
 WheelCollider:
@@ -1659,7 +1658,7 @@ WheelCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1876124473}
   m_Center: {x: 0, y: 0, z: 0}
-  m_Radius: 0.0202
+  m_Radius: 0.0201
   m_SuspensionSpring:
     spring: 35000
     damper: 4500

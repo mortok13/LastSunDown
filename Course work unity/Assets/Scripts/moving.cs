@@ -6,8 +6,7 @@ public class moving : MonoBehaviour
 {
     // public Vector3 PlayerPosition;
     private Rigidbody PlayerRB;
-    public Rigidbody FFVector;
-    public Rigidbody BFVector;
+    public Vector3 FlipVector;
     public GameObject backwheel;
     public GameObject frontwheel;
     public static float accelTimer;
@@ -60,7 +59,11 @@ public class moving : MonoBehaviour
         }
         if(controls.rotRight)
         {
-            BFVector.AddForce(transform.up * (-100))         ;
+           PlayerRB.AddTorque(transform.right * 1f);
+        }
+        if(controls.rotLeft)
+        {
+            PlayerRB.AddTorque(transform.right * (-1f));
         }
     }
 }
