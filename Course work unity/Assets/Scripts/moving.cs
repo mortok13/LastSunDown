@@ -28,13 +28,19 @@ public class moving : MonoBehaviour
         {
             backwheel.transform.Rotate(1,0,0, Space.Self);
             frontwheel.transform.Rotate(1,0,0, Space.Self);
+            if(!stats.isInAir)
+            {
             PlayerRB.AddForce(transform.forward * 14);
+            }
         }
         if(controls.back)
         {
             backwheel.transform.Rotate(-1,0,0, Space.Self);
             frontwheel.transform.Rotate(-1,0,0, Space.Self);
+            if(!stats.isInAir)
+            {
             PlayerRB.AddForce(transform.forward * (-10));
+            }
         }
         if(controls.rotRight)
         {

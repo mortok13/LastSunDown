@@ -688,6 +688,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 404c465e81ff39446a3fc8fa784ddddd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1088843631
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1088843624}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 90cdb0ffcfcec1044abdefbd2b04caff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1096471754
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1367,6 +1379,18 @@ WheelCollider:
     m_AsymptoteValue: 0.75
     m_Stiffness: 1
   m_Enabled: 1
+--- !u!114 &1876124479
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1876124473}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 90cdb0ffcfcec1044abdefbd2b04caff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1882893679
 PrefabInstance:
   m_ObjectHideFlags: 0
