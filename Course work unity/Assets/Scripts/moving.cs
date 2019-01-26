@@ -7,63 +7,99 @@ public class moving : MonoBehaviour
     // public Vector3 PlayerPosition;
     private Rigidbody PlayerRB;
     public Vector3 FlipVector;
-    public GameObject backwheel;
-    public GameObject frontwheel;
+
+    public GameObject[] Wheels;
+    public WheelCollider[] WheelColls;
     public static float accelTimer;
     //private float speed,x,y,z;
     void Start()
-    {        
+    {
         PlayerRB = GetComponent<Rigidbody>();
-        accelTimer = 0;
+       PlayerRB.centerOfMass = new Vector3(0, -0.0344f,0);
+       // accelTimer = 0;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(controls.forward)
+        if(controls.forward || controls.back)
         {
-            accelTimer += Time.deltaTime;
+            if(controls.forward)
+            {
+                accelTimer += Time.deltaTime;
+            }
+            else
+            {
+                accelTimer -= Time.deltaTime;
+            }
         }
-        else if(controls.back)
+        else
         {
-            accelTimer -= Time.deltaTime;
+            if(accelTimer > 0.03f)
+            {
+                accelTimer -= 2*Time.deltaTime;
+            }
+            else if(accelTimer < -0.03f)
+            {
+                accelTimer += 3*Time.deltaTime;
+            }
+            else
+            {
+                accelTimer = 0;
+            }
         }
 
-        if(accelTimer <= 0)
+        if(accelTimer <= -Mathf.PI/2)
         {
-            accelTimer = 0;
+            accelTimer = -Mathf.PI/2;
+        }
+        else if(accelTimer >= Mathf.PI)
+        {
+            accelTimer = Mathf.PI;
         }
     }
 
     void FixedUpdate()
     {
-        //Debug.Log("Body position:"+ transform.position + "\n Body rotation:" + transform.rotation);
-        //Debug.Log("timer " + accelTimer);
-        if(controls.forward)
+        if(controls.forward && controls.back)
         {
-            backwheel.transform.Rotate(1,0,0, Space.Self);
-            frontwheel.transform.Rotate(1,0,0, Space.Self);
-            if(!stats.isInAir)
+            WheelColls[0].motorTorque = 0;
+            WheelColls[1].motorTorque = 0;
+        }
+        else if(controls.forward || controls.back)
+        {
+            if(controls.forward)
             {
-            PlayerRB.AddForce(transform.forward * 14);
+            WheelColls[0].motorTorque = speedControl.speed;
+            WheelColls[1].motorTorque = speedControl.speed;
+            //Wheels[0].transform.Rotate(WheelColls[0].rpm * Time.deltaTime, 0, 0);
+            //Wheels[1].transform.Rotate(WheelColls[1].rpm * Time.deltaTime, 0, 0);
+            }
+            else
+            {
+            WheelColls[0].motorTorque = speedControl.speed;
+            WheelColls[1].motorTorque = speedControl.speed;
+            //Wheels[0].transform.Rotate(WheelColls[0].rpm * Time.deltaTime, 0, 0);
+           // Wheels[1].transform.Rotate(WheelColls[1].rpm * Time.deltaTime, 0, 0);
             }
         }
-        if(controls.back)
+        else
         {
-            backwheel.transform.Rotate(-1,0,0, Space.Self);
-            frontwheel.transform.Rotate(-1,0,0, Space.Self);
-            if(!stats.isInAir)
-            {
-            PlayerRB.AddForce(transform.forward * (-10));
-            }
+          WheelColls[0].motorTorque = 0f;
+          WheelColls[1].motorTorque = 0f;
+        }
+        Wheels[0].transform.Rotate(WheelColls[0].rpm * Time.deltaTime, 0, 0);
+        Wheels[1].transform.Rotate(WheelColls[1].rpm * Time.deltaTime, 0, 0);
+
+        if(controls.rotLeft)
+        {
+            PlayerRB.AddTorque(transform.right * (-10f));
         }
         if(controls.rotRight)
         {
-           PlayerRB.AddTorque(transform.right * 1f);
+            PlayerRB.AddTorque(transform.right * (10f));
         }
-        if(controls.rotLeft)
-        {
-            PlayerRB.AddTorque(transform.right * (-1f));
-        }
+       // Wheels[0].transform.Rotate(WheelColls[0].rpm * Time.deltaTime, 0, 0);
+        //Wheels[1].transform.Rotate(WheelColls[1].rpm * Time.deltaTime, 0, 0);
     }
 }
