@@ -11,7 +11,7 @@ public class controls : MonoBehaviour
     public static bool forward, back, rotLeft, rotRight;
 
     // Update is called once per frame
-    void LateUpdate()
+    void Update()
     {
         forward = Input.GetKey(KeyCode.W);
         back = Input.GetKey(KeyCode.S);
