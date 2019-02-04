@@ -19,7 +19,7 @@ GameObject:
   - component: {fileID: 3006751158747661301}
   m_Layer: 10
   m_Name: MotorbikeFBX2
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -31,8 +31,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3006751159223299584}
-  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 0.794, z: 0}
+  m_LocalRotation: {x: -0.0011606457, y: 0.7071068, z: 0.0011681777, w: 0.7071049}
+  m_LocalPosition: {x: 0.01569935, y: 0.7027489, z: -0.000030936673}
   m_LocalScale: {x: 5, y: 5, z: 5}
   m_Children:
   - {fileID: 3006751159222809124}
@@ -153,8 +153,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 294ee22ac485eb249b3d4c3a563a9f1f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  FlipVector: {x: 0, y: 0, z: 0}
-  Cube: {fileID: 0}
   Wheels:
   - {fileID: 3006751159223299588}
   - {fileID: 3006751159223299590}
@@ -173,7 +171,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7947ea49af1acdc4db2df9164373af6c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxSpeed: 20
+  maxSpeed: 25
 --- !u!1 &3006751159223299586
 GameObject:
   m_ObjectHideFlags: 0
@@ -268,7 +266,7 @@ GameObject:
   - component: {fileID: 3006751159223299587}
   m_Layer: 0
   m_Name: BackWheel
-  m_TagString: Untagged
+  m_TagString: backWheel
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -280,7 +278,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3006751159223299588}
-  m_LocalRotation: {x: -0.00021869798, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0.07283148, y: 0, z: 0, w: 0.9973443}
   m_LocalPosition: {x: 0.00030431018, y: -0.020342464, z: -0.032613292}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -389,7 +387,7 @@ GameObject:
   - component: {fileID: 3006751159223299589}
   m_Layer: 0
   m_Name: Front_wheel
-  m_TagString: Untagged
+  m_TagString: frontWheel
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -401,7 +399,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3006751159223299590}
-  m_LocalRotation: {x: 0.00072851154, y: 0, z: 0, w: 0.9999998}
+  m_LocalRotation: {x: 0.07167038, y: 0, z: 0, w: 0.99742836}
   m_LocalPosition: {x: 0.00030431018, y: -0.026063863, z: 0.010345493}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
