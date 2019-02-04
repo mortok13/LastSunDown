@@ -31,7 +31,7 @@ public class moving : MonoBehaviour
     void Update()
     {
         /******* TIMER  *******/
-        if((controls.forward || controls.back)&& (WheelColls[0].isGrounded || WheelColls[1].isGrounded))
+        if((controls.forward || controls.back) /*&& (WheelColls[0].isGrounded || WheelColls[1].isGrounded)*/)
         {
             if(controls.forward)
             {

@@ -17,7 +17,7 @@ public class menuMoving : MonoBehaviour
         WheelColls[1] = GameObject.Find("fwCol").GetComponent<WheelCollider>();
         for(i = 0; i < 10; i++)
         {
-            road[i] = Instantiate(mRoadBlock, new Vector3(-1+i, 0, 0), Quaternion.Euler(0, 180, 0));
+            road[i] = Instantiate(mRoadBlock, new Vector3(-1+i, 0, 0), Quaternion.identity);
         }
         i = 0;
     }
