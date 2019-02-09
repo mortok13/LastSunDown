@@ -22,7 +22,7 @@ public class rotationLeft : MonoBehaviour
 
     void FixedUpdate()
     {
-        transform.rotation = Quaternion.Lerp(transform.rotation, qAngle.normalized, Time.fixedDeltaTime);
+        transform.rotation = Quaternion.Lerp(transform.rotation, qAngle.normalized, 2 * Time.fixedDeltaTime);
     }
 
     public void rotModeControl(float angle)
