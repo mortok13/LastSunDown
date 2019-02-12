@@ -12,23 +12,17 @@ public class rotationLeft : MonoBehaviour
 
     void Start()
     {
-        rotAngle = 90;
+        rotAngle = 0;
         Debug.Log(rotAngle);
-    }
-    void Update()
-    {
-
     }
 
     void FixedUpdate()
     {
-        transform.rotation = Quaternion.Lerp(transform.rotation, qAngle.normalized, 2 * Time.fixedDeltaTime);
+        transform.rotation = Quaternion.Lerp(transform.rotation, qAngle, 2 * Time.fixedDeltaTime);
     }
 
     public void rotModeControl(float angle)
     {
-        this.enabled = true;
-            Debug.Log(transform.rotation.y);
-                qAngle = Quaternion.Euler(transform.rotation.eulerAngles + new Vector3(0,angle, 0));
+        qAngle = Quaternion.Euler(transform.rotation.eulerAngles + new Vector3(0,angle, 0));
     }
 }

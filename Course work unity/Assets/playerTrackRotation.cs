@@ -9,8 +9,15 @@ public class playerTrackRotation : MonoBehaviour
     {
         if(other.tag == "Player")
         {
-            other.GetComponent<rotationLeft>().rotModeControl(-90f);
-
+            switch(this.tag)
+            {
+                case "rotRight":
+                other.GetComponent<rotationLeft>().rotModeControl(90f);
+                break;
+                case "rotLeft":
+                other.GetComponent<rotationLeft>().rotModeControl(-90f);
+                break;
+            }
         }
     }
     void OnTriggerStay(Collider other)

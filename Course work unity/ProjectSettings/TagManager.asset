@@ -9,6 +9,8 @@ TagManager:
   - backWheel
   - frontWheel
   - Road
+  - rotLeft
+  - rotRight
   layers:
   - Default
   - TransparentFX
