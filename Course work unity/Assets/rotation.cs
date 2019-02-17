@@ -5,21 +5,38 @@ using UnityEngine;
 public class rotation : MonoBehaviour
 {
     //private float rotationTime = 1f;
-
+    public bool movingMode;        /////// 0 - horizontal, 1 - vertical ///////
     private Quaternion qAngle;
     private Vector3 playerCurRot;
+    private Vector3 playerRotPos;
     public bool inRotation;
+
+    private float lerpTimer;
 
     void Start()
     {
         playerCurRot = transform.rotation.eulerAngles;
+        playerRotPos = transform.position;
         inRotation = false;
         rotStabilize(0f);
+        movingMode = false;
+        lerpTimer = 0f;
         //qAngle = Quaternion.Euler(transform.rotation.eulerAngles);
+        playerRotPos.x = Mathf.Round(playerRotPos.x);
+        playerRotPos.z = Mathf.Round(playerRotPos.z);
     }
 
     void Update()
-    {
+    {       
+        playerRotPos = transform.position;
+        if(movingMode)
+        {
+            playerRotPos.x = Mathf.Round(playerRotPos.x);
+        }
+        else
+        {
+            playerRotPos.z = Mathf.Round(playerRotPos.z);
+        }
     }
     void FixedUpdate()
     {
@@ -27,18 +44,19 @@ public class rotation : MonoBehaviour
         if(!inRotation)
         {
             transform.rotation = Quaternion.Lerp(transform.rotation, qAngle,  Time.fixedDeltaTime * 5);
-          //  transform.tran
+            transform.position = Vector3.Lerp(transform.position, playerRotPos, 2 * Time.deltaTime);
         }
     }
     public void rotStabilize(float angle)
     {
         playerCurRot.y += angle;
         qAngle = Quaternion.Euler(0,playerCurRot.y, 0);
-
+        lerpTimer = 0f;
     }
 
     public void setRotJoint(byte rotMode)
     {
+       // movingMode = !movingMode;
         gameObject.AddComponent(typeof(ConfigurableJoint));
         ConfigurableJoint CJ = GetComponent<ConfigurableJoint>();
         SoftJointLimit CJlimit = new SoftJointLimit();
