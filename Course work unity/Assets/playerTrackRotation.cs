@@ -4,18 +4,19 @@ using UnityEngine;
 
 public class playerTrackRotation : MonoBehaviour
 {
-    private bool rotated = false;
     void OnTriggerEnter(Collider other)
     {
         if(other.tag == "Player")
         {
+            other.GetComponent<speedControl>().maxSpeed = 5f;
+            other.GetComponent<rotation>().inRotation = true;
             switch(this.tag)
             {
                 case "rotRight":
-                other.GetComponent<rotationLeft>().rotModeControl(90f);
+                other.GetComponent<rotation>().setRotJoint(1);
                 break;
                 case "rotLeft":
-                other.GetComponent<rotationLeft>().rotModeControl(-90f);
+                other.GetComponent<rotation>().setRotJoint(0);
                 break;
             }
         }
@@ -26,7 +27,22 @@ public class playerTrackRotation : MonoBehaviour
     }
 
     void OnTriggerExit(Collider other)
-    {
+    {   
+        if(other.tag == "Player")
+        {
+            other.GetComponent<speedControl>().maxSpeed = 20f;
+            other.GetComponent<rotation>().resetRotJoint();
+            other.GetComponent<rotation>().inRotation = false;
+            switch(this.tag)
+            {
+                case "rotRight":
+                other.GetComponent<rotation>().rotStabilize(90f);
+                break;
+                case "rotLeft":
+                other.GetComponent<rotation>().rotStabilize(-90f);
+                break;
+            }
+        }
     }
 
 }

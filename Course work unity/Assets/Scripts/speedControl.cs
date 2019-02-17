@@ -11,7 +11,7 @@ public class speedControl : MonoBehaviour
     public static float angleSpeed;
     void Start()
     {
-            maxSpeed = 25f;
+            maxSpeed = 20f;
         
     }
     void FixedUpdate()

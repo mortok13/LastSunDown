@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class moving : MonoBehaviour
 {
-    // public Vector3 PlayerPosition;
+ 
     private Rigidbody PlayerRB;
-    //public GameObject Cube;
+
 
     public GameObject[] Wheels = new GameObject[2];
     public WheelCollider[] WheelColls = new WheelCollider[2];
@@ -18,20 +18,13 @@ public class moving : MonoBehaviour
         WheelColls[0] = GameObject.Find("bwCol").GetComponent<WheelCollider>();
         WheelColls[1] = GameObject.Find("fwCol").GetComponent<WheelCollider>();
         PlayerRB = GetComponent<Rigidbody>();
-       //PlayerRB.centerOfMass = (Wheels[0].transform.position - Wheels[1].transform.position)/2;
-     //  Physics.IgnoreLayerCollision(9,10);
         accelTimer = 0;
-    //    for(int i = 0; i < 160; i++)
-    //    {
-    //        Instantiate(Cube, new Vector3(2*i, 1, 1), Quaternion.Euler(0, 180, 0));
-    //    }
     }
 
-    // Update is called once per frame
     void Update()
     {
         /******* TIMER  *******/
-        if((controls.forward || controls.back) /*&& (WheelColls[0].isGrounded || WheelColls[1].isGrounded)*/)
+        if((controls.forward || controls.back))
         {
             if(controls.forward)
             {
@@ -89,12 +82,6 @@ public class moving : MonoBehaviour
                     }
                 wheelColl.brakeTorque = 0f;
                 }
-            // WheelColls[0].motorTorque = speedControl.speed;
-            // WheelColls[1].motorTorque = speedControl.speed;
-            // WheelColls[0].brakeTorque = 0f;
-            // WheelColls[1].brakeTorque = 0f;
-            //Wheels[0].transform.Rotate(WheelColls[0].rpm * Time.deltaTime, 0, 0);
-            //Wheels[1].transform.Rotate(WheelColls[1].rpm * Time.deltaTime, 0, 0);
             }
             else
             {
@@ -105,10 +92,6 @@ public class moving : MonoBehaviour
                     wheelColl.brakeTorque = 0f;
                     wheelColl.motorTorque = speedControl.speed;
                     }
-                // WheelColls[0].brakeTorque = 0f;
-                // WheelColls[1].brakeTorque = 0f;
-                // WheelColls[0].motorTorque = speedControl.speed;
-                // WheelColls[1].motorTorque = speedControl.speed;
                 }
                 else
                 {
@@ -116,8 +99,6 @@ public class moving : MonoBehaviour
                     WheelColls[0].brakeTorque += 1f;
                     WheelColls[1].brakeTorque += 1f;
                 }
-            //Wheels[0].transform.Rotate(WheelColls[0].rpm * Time.deltaTime, 0, 0);
-           // Wheels[1].transform.Rotate(WheelColls[1].rpm * Time.deltaTime, 0, 0);
             }
         }
         else
@@ -137,13 +118,6 @@ public class moving : MonoBehaviour
                         wheelColl.motorTorque = 0f;
                 }
             }
-         // WheelColls[0].motorTorque = 0f;
-         // WheelColls[1].motorTorque = 0f;
-        //   if(speedControl.speed != 0)
-        //   {
-        //     WheelColls[0].brakeTorque = 1f;
-        //     WheelColls[1].brakeTorque = 1f;
-        //   }
         }
         Wheels[0].transform.Rotate(WheelColls[0].rpm *  Mathf.PI * Time.deltaTime, 0, 0);
         Wheels[1].transform.Rotate(WheelColls[1].rpm * Mathf.PI * Time.deltaTime, 0, 0);
@@ -156,8 +130,6 @@ public class moving : MonoBehaviour
         {
             PlayerRB.AddTorque(transform.right * (20f));
         }
-       // Wheels[0].transform.Rotate(WheelColls[0].rpm * Time.deltaTime, 0, 0);
-        //Wheels[1].transform.Rotate(WheelColls[1].rpm * Time.deltaTime, 0, 0);
     }
 
 
