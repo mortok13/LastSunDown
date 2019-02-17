@@ -4,14 +4,19 @@ ModelImporter:
   serializedVersion: 23
   fileIDToRecycleName:
     100000: //RootNode
-    100002: pCube27
+    100002: pCube31
     400000: //RootNode
-    400002: pCube27
-    2100000: pCube27Mat
-    2300000: pCube27
-    3300000: pCube27
-    4300000: pCube27
-  externalObjects: {}
+    400002: pCube31
+    2100000: pCube31Mat
+    2300000: pCube31
+    3300000: pCube31
+    4300000: pCube31
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: pCube31Mat
+    second: {fileID: 2100000, guid: 3dfca76f7b283cf49aef2ca217cf4d94, type: 2}
   materials:
     importMaterials: 1
     materialName: 0
