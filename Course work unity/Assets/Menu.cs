@@ -2,10 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-public class locationsMenu : MonoBehaviour
+public class Menu : MonoBehaviour
 {
     public void loadLocationCity()
     {
-        SceneManager.LoadScene("alpha", LoadSceneMode.Single);
+        SceneManager.LoadScene("City", LoadSceneMode.Single);
+    }
+    public void Quit()
+    {
+        Application.Quit();
     }
 }
