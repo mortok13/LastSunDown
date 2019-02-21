@@ -8,7 +8,7 @@ public class playerTrackRotation : MonoBehaviour
     {
         if(other.tag == "Player")
         {
-            other.GetComponent<speedControl>().maxSpeed = 5f;
+            other.GetComponent<speedControl>().maxSpeed = 6f;
             other.GetComponent<rotation>().inRotation = true;
             switch(this.tag)
             {
@@ -23,7 +23,7 @@ public class playerTrackRotation : MonoBehaviour
     }
     void OnTriggerStay(Collider other)
     {
-        
+                
     }
 
     void OnTriggerExit(Collider other)

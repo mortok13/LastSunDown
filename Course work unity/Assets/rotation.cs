@@ -9,6 +9,7 @@ public class rotation : MonoBehaviour
     private Quaternion qAngle;
     private Vector3 playerCurRot;
     private Vector3 playerRotPos;
+
     public bool inRotation;
 
     private float lerpTimer;
@@ -46,6 +47,10 @@ public class rotation : MonoBehaviour
             transform.rotation = Quaternion.Lerp(transform.rotation, qAngle,  Time.fixedDeltaTime * 5);
             transform.position = Vector3.Lerp(transform.position, playerRotPos, 2 * Time.deltaTime);
         }
+        /*else
+        {
+            transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(transform.rotation.x, transform.rotation.y, 0f), Time.fixedDeltaTime * 5 );
+        }*/
     }
     public void rotStabilize(float angle)
     {
