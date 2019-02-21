@@ -20,6 +20,8 @@ public class menuMoving : MonoBehaviour
             road[i] = Instantiate(mRoadBlock, new Vector3(-1+i, 0, 0), Quaternion.identity);
         }
         i = 0;
+        WheelColls[0].motorTorque = 10f;
+        WheelColls[1].motorTorque = 10f;
     }
 
     // Update is called once per frame
@@ -37,8 +39,8 @@ public class menuMoving : MonoBehaviour
     }
     void FixedUpdate()
     {
-        WheelColls[0].motorTorque = 10f;
-        WheelColls[1].motorTorque = 10f;
+      //  WheelColls[0].motorTorque = 10f;
+       // WheelColls[1].motorTorque = 10f;
         Wheels[0].transform.Rotate(WheelColls[0].rpm * 2 * Time.deltaTime,0,0);
         Wheels[1].transform.Rotate(WheelColls[1].rpm * 2 * Time.deltaTime,0,0);
     }

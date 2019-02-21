@@ -18,7 +18,7 @@ public class speedControl : MonoBehaviour
     void FixedUpdate()
     {
             speed = Mathf.Sin(moving.accelTimer/2) * maxSpeed;
-            distance += GameObject.FindGameObjectWithTag("Player").GetComponent<Rigidbody>().velocity.magnitude * Time.fixedDeltaTime;
+            distance += Mathf.Sign(speed) * GameObject.FindGameObjectWithTag("Player").GetComponent<Rigidbody>().velocity.magnitude * Time.fixedDeltaTime;
             brake = maxSpeed - speed;            
             acceleration = Mathf.Cos(moving.accelTimer/2)/2;
             angleSpeed = speed / 0.201f;     

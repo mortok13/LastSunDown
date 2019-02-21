@@ -9,13 +9,14 @@ public class rotation : MonoBehaviour
     private Quaternion qAngle;
     private Vector3 playerCurRot;
     private Vector3 playerRotPos;
-
+    private bool Stabilized;
     public bool inRotation;
 
     private float lerpTimer;
 
     void Start()
     {
+        Stabilized = true;
         playerCurRot = transform.rotation.eulerAngles;
         playerRotPos = transform.position;
         inRotation = false;
@@ -44,8 +45,11 @@ public class rotation : MonoBehaviour
         //Quaternion.Lerp(transform.rotation, Quaternion.Euler(transform.rotation.x, transform.rotation.y, 0), 0.1f);
         if(!inRotation)
         {
-            transform.rotation = Quaternion.Lerp(transform.rotation, qAngle,  Time.fixedDeltaTime * 5);
-            transform.position = Vector3.Lerp(transform.position, playerRotPos, 2 * Time.deltaTime);
+            if(transform.rotation.eulerAngles.x <= 45 && transform.rotation.eulerAngles.x >= -45)
+            {
+            transform.rotation = Quaternion.Lerp(transform.rotation, qAngle,  Time.fixedDeltaTime * 4);
+            }
+            transform.position = Vector3.Lerp(transform.position, playerRotPos, 4 * Time.deltaTime);
         }
         /*else
         {
@@ -57,6 +61,7 @@ public class rotation : MonoBehaviour
         playerCurRot.y += angle;
         qAngle = Quaternion.Euler(0,playerCurRot.y, 0);
         lerpTimer = 0f;
+        Stabilized = false;
     }
 
     public void setRotJoint(byte rotMode)
@@ -73,9 +78,7 @@ public class rotation : MonoBehaviour
         CJ.zMotion = ConfigurableJointMotion.Limited;
         CJ.anchor = new Vector3(-0.1f * Mathf.Pow(-1, rotMode), 0, 0);
         CJ.linearLimit = CJlimit;
-
     }
-
     public void resetRotJoint()
     {
         Destroy(GetComponent<ConfigurableJoint>());

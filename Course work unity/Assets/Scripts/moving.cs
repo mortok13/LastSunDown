@@ -6,8 +6,6 @@ public class moving : MonoBehaviour
 {
  
     private Rigidbody PlayerRB;
-
-
     public GameObject[] Wheels = new GameObject[2];
     public WheelCollider[] WheelColls = new WheelCollider[2];
     public static float accelTimer;
@@ -59,7 +57,6 @@ public class moving : MonoBehaviour
         {
             accelTimer = Mathf.PI;
         }
-
         /******* TIMER  *******/
     }
 
@@ -124,13 +121,11 @@ public class moving : MonoBehaviour
 
         if(controls.rotLeft)
         {
-            PlayerRB.AddTorque(transform.right * (-20f));
+            PlayerRB.AddTorque(transform.right * (-10f));
         }
         if(controls.rotRight)
         {
-            PlayerRB.AddTorque(transform.right * (20f));
+            PlayerRB.AddTorque(transform.right * (10f));
         }
     }
-
-
 }
