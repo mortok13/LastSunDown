@@ -6,9 +6,11 @@ public class moving : MonoBehaviour
 {
  
     private Rigidbody PlayerRB;
-    public GameObject[] Wheels = new GameObject[2];
-    public WheelCollider[] WheelColls = new WheelCollider[2];
+    private GameObject[] Wheels = new GameObject[2];
+    private WheelCollider[] WheelColls = new WheelCollider[2];
     public static float accelTimer;
+
+
     void Start()
     {
         Wheels[0] = GameObject.FindGameObjectWithTag("backWheel");
@@ -119,13 +121,28 @@ public class moving : MonoBehaviour
         Wheels[0].transform.Rotate(WheelColls[0].rpm *  Mathf.PI * Time.deltaTime, 0, 0);
         Wheels[1].transform.Rotate(WheelColls[1].rpm * Mathf.PI * Time.deltaTime, 0, 0);
 
-        if(controls.rotLeft)
+        if(controls.rotLeft || controls.rotRight)
         {
-            PlayerRB.AddTorque(transform.right * (-10f));
+            if(controls.rotLeft)
+            {
+                // transform.Rotate(-Time.fixedDeltaTime*Mathf.PI*20, 0, 0);
+                 PlayerRB.AddTorque(transform.right * (-5f));
+                //PlayerRB.MoveRotation(Quaternion.Lerp(transform.rotation, Quaternion.Euler(transform.rotation.x + 1f, GetComponent<rotation>().getCurRot().y, 0), Time.fixedDeltaTime * 5));
+                //GetComponent<rotation>().deltaCurRotX(1f);
+                // transform.rotation *= new Quaternion(0.5f, 0, 0,1);
+            }
+            else
+            {
+                PlayerRB.AddTorque(transform.right * (5f));
+                // transform.Rotate(Time.fixedDeltaTime*Mathf.PI*20, 0, 0);
+                // PlayerRB.MoveRotation(Quaternion.Lerp(transform.rotation, Quaternion.Euler(transform.rotation.x + 1f, GetComponent<rotation>().getCurRot().y, 0), Time.fixedDeltaTime * 5));
+                // transform.rotation *= new Quaternion(-0.5f, 0, 0,1);
+            }   
+            GetComponent<rotation>().deltaCurRotX(transform.rotation.eulerAngles.x);
         }
-        if(controls.rotRight)
+        else
         {
-            PlayerRB.AddTorque(transform.right * (10f));
+            GetComponent<rotation>().deltaCurRotX(transform.rotation.eulerAngles.x);
         }
     }
 }
