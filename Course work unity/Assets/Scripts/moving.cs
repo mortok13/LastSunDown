@@ -10,9 +10,11 @@ public class moving : MonoBehaviour
     private WheelCollider[] WheelColls = new WheelCollider[2];
     public static float accelTimer;
 
+   // private float torqueMoment;
 
     void Start()
     {
+      //  torqueMoment = 0;
         Wheels[0] = GameObject.FindGameObjectWithTag("backWheel");
         Wheels[1] = GameObject.FindGameObjectWithTag("frontWheel");
         WheelColls[0] = GameObject.Find("bwCol").GetComponent<WheelCollider>();
@@ -120,29 +122,50 @@ public class moving : MonoBehaviour
         }
         Wheels[0].transform.Rotate(WheelColls[0].rpm *  Mathf.PI * Time.deltaTime, 0, 0);
         Wheels[1].transform.Rotate(WheelColls[1].rpm * Mathf.PI * Time.deltaTime, 0, 0);
+        //Debug.Log(torqueMoment + "tm");
 
         if(controls.rotLeft || controls.rotRight)
         {
             if(controls.rotLeft)
             {
                 // transform.Rotate(-Time.fixedDeltaTime*Mathf.PI*20, 0, 0);
-                 PlayerRB.AddTorque(transform.right * (-5f));
+                PlayerRB.AddTorque(transform.right * (-5f));
+               // torqueMoment -= 5;
                 //PlayerRB.MoveRotation(Quaternion.Lerp(transform.rotation, Quaternion.Euler(transform.rotation.x + 1f, GetComponent<rotation>().getCurRot().y, 0), Time.fixedDeltaTime * 5));
                 //GetComponent<rotation>().deltaCurRotX(1f);
                 // transform.rotation *= new Quaternion(0.5f, 0, 0,1);
             }
-            else
+            
+            if(controls.rotRight)
             {
                 PlayerRB.AddTorque(transform.right * (5f));
+                //torqueMoment += 5;
                 // transform.Rotate(Time.fixedDeltaTime*Mathf.PI*20, 0, 0);
                 // PlayerRB.MoveRotation(Quaternion.Lerp(transform.rotation, Quaternion.Euler(transform.rotation.x + 1f, GetComponent<rotation>().getCurRot().y, 0), Time.fixedDeltaTime * 5));
                 // transform.rotation *= new Quaternion(-0.5f, 0, 0,1);
             }   
-            GetComponent<rotation>().deltaCurRotX(transform.rotation.eulerAngles.x);
+            GetComponent<rotation>().deltaCurRotX(PlayerRB.rotation.eulerAngles.x);
+            /*
+            if(transform.rotation.eulerAngles.x >= GetComponent<rotation>().getCurRot().x + 45f)
+            {
+                GetComponent<rotation>().deltaCurRotX(GetComponent<rotation>().getCurRot().x + 45f);
+            }
+            */
+           /*
+            if(transform.rotation.eulerAngles.x <= GetComponent<rotation>().getCurRot().x - 45f)
+            {
+                GetComponent<rotation>().deltaCurRotX(GetComponent<rotation>().getCurRot().x - 45f);
+            }
+            */
         }
         else
         {
-            GetComponent<rotation>().deltaCurRotX(transform.rotation.eulerAngles.x);
+           /* if(PlayerRB.angularVelocity.sqrMagnitude != 0)
+            {
+                PlayerRB.AddTorque(transform.right * Mathf.Sign(torqueMoment) * 2.5f);
+                torqueMoment += Mathf.Sign(torqueMoment) * 2.5f;
+            }
+            */
         }
     }
 }

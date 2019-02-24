@@ -10,6 +10,7 @@ public class playerTrackRotation : MonoBehaviour
         {
             other.GetComponent<speedControl>().maxSpeed = 6f;
             other.GetComponent<rotation>().inRotation = true;
+            other.GetComponent<rotation>().StopAllCoroutines();
             switch(this.tag)
             {
                 case "rotRight":

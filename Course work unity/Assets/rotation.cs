@@ -12,14 +12,20 @@ public class rotation : MonoBehaviour
     private bool Stabilized;
     public bool inRotation;
 
+    private Rigidbody playerRB;
+
     private float lerpTimer;
+
+    private  float rotStabilizeTime;
 
     void Start()
     {
+        playerRB = GetComponent<Rigidbody>();
         Stabilized = true;
         playerCurRot = transform.rotation.eulerAngles;
         playerCurRot.z = 0;
 
+        rotStabilizeTime = Time.deltaTime;
         playerRotPos = transform.position;
         inRotation = false;
         rotStabilize(0f);
@@ -42,9 +48,12 @@ public class rotation : MonoBehaviour
         {
             playerRotPos.z = Mathf.Round(playerRotPos.z);
         }
-        //playerCurRot.x = transform.rotation.x;
+        //transform.rotation = new Quaternion(Quaternion.identity.x, Quaternion.identity.y, 0, Quaternion.identity.w);
+
+        Debug.Log(rotStabilizeTime);
         Debug.Log(playerCurRot);
         Debug.Log(transform.rotation);
+        playerCurRot.z = 0;
     }
     void FixedUpdate()
     {
@@ -53,11 +62,12 @@ public class rotation : MonoBehaviour
         {
             if(!(controls.rotLeft || controls.rotRight))
             {
-                transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(playerCurRot),  Time.fixedDeltaTime * 5);
+                playerRB.MoveRotation(Quaternion.Lerp(transform.rotation, Quaternion.Euler(playerCurRot),  rotStabilizeTime)*  Quaternion.AngleAxis(0, Vector3.forward));
+                //transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(playerCurRot),  Time.fixedDeltaTime * 5);
             }
             //transform.rotation =  Quaternion.Lerp(transform.rotation, playerCurRot, 5 * Time.fixedDeltaTime);
             
-            transform.position = Vector3.Lerp(transform.position, playerRotPos, 5 * Time.deltaTime);
+            playerRB.MovePosition(Vector3.Lerp(transform.position, playerRotPos, 5 * Time.deltaTime));
         }
     }
     public void rotStabilize(float angle)
@@ -66,6 +76,7 @@ public class rotation : MonoBehaviour
        // qAngle = Quaternion.Euler(0,playerCurRot.y, 0);
         //lerpTimer = 0f;
        // Stabilized = false;
+       StartCoroutine("rotTimer");
     }
 
     public void setRotJoint(byte rotMode)
@@ -105,5 +116,13 @@ public class rotation : MonoBehaviour
         {
             playerCurRot.x = 0;
         }
+    }
+
+    IEnumerator rotTimer()
+    {
+        rotStabilizeTime = 5 * Time.deltaTime;
+        yield return new WaitForSeconds(2f);
+        rotStabilizeTime = Time.deltaTime;
+        StopCoroutine("rotTimer");
     }
 }
