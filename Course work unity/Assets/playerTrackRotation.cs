@@ -43,7 +43,7 @@ public class playerTrackRotation : MonoBehaviour
                 other.GetComponent<rotation>().rotStabilize(-90f);
                 break;
             }
-
+            GetComponent<BoxCollider>().enabled = false;
         }
     }
 

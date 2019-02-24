@@ -129,7 +129,7 @@ public class moving : MonoBehaviour
             if(controls.rotLeft)
             {
                 // transform.Rotate(-Time.fixedDeltaTime*Mathf.PI*20, 0, 0);
-                PlayerRB.AddTorque(transform.right * (-5f));
+                PlayerRB.AddTorque(transform.right * (-10f));
                // torqueMoment -= 5;
                 //PlayerRB.MoveRotation(Quaternion.Lerp(transform.rotation, Quaternion.Euler(transform.rotation.x + 1f, GetComponent<rotation>().getCurRot().y, 0), Time.fixedDeltaTime * 5));
                 //GetComponent<rotation>().deltaCurRotX(1f);
@@ -138,7 +138,7 @@ public class moving : MonoBehaviour
             
             if(controls.rotRight)
             {
-                PlayerRB.AddTorque(transform.right * (5f));
+                PlayerRB.AddTorque(transform.right * (10f));
                 //torqueMoment += 5;
                 // transform.Rotate(Time.fixedDeltaTime*Mathf.PI*20, 0, 0);
                 // PlayerRB.MoveRotation(Quaternion.Lerp(transform.rotation, Quaternion.Euler(transform.rotation.x + 1f, GetComponent<rotation>().getCurRot().y, 0), Time.fixedDeltaTime * 5));
