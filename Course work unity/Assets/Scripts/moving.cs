@@ -167,5 +167,6 @@ public class moving : MonoBehaviour
             }
             */
         }
+        GetComponent<rotation>().deltaCurRotX(PlayerRB.rotation.eulerAngles.x);
     }
 }

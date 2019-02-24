@@ -25,7 +25,7 @@ public class rotation : MonoBehaviour
         playerCurRot = transform.rotation.eulerAngles;
         playerCurRot.z = 0;
 
-        rotStabilizeTime = Time.deltaTime;
+        rotStabilizeTime = 0;
         playerRotPos = transform.position;
         inRotation = false;
         rotStabilize(0f);
@@ -57,18 +57,15 @@ public class rotation : MonoBehaviour
     }
     void FixedUpdate()
     {
-        //Quaternion.Lerp(transform.rotation, Quaternion.Euler(transform.rotation.x, transform.rotation.y, 0), 0.1f);
-        if(!inRotation)
-        {
-            if(!(controls.rotLeft || controls.rotRight))
-            {
-                playerRB.MoveRotation(Quaternion.Lerp(transform.rotation, Quaternion.Euler(playerCurRot),  rotStabilizeTime)*  Quaternion.AngleAxis(0, Vector3.forward));
+      //  //Quaternion.Lerp(transform.rotation, Quaternion.Euler(transform.rotation.x, transform.rotation.y, 0), 0.1f);
+       // if(!inRotation)
+      //  {
+            playerRB.MoveRotation(Quaternion.Lerp(transform.rotation, Quaternion.Euler(playerCurRot),  2*rotStabilizeTime));
                 //transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(playerCurRot),  Time.fixedDeltaTime * 5);
-            }
             //transform.rotation =  Quaternion.Lerp(transform.rotation, playerCurRot, 5 * Time.fixedDeltaTime);
             
-            playerRB.MovePosition(Vector3.Lerp(transform.position, playerRotPos, 5 * Time.deltaTime));
-        }
+            playerRB.MovePosition(Vector3.Lerp(transform.position, playerRotPos, rotStabilizeTime));
+       // }
     }
     public void rotStabilize(float angle)
     {
@@ -118,11 +115,33 @@ public class rotation : MonoBehaviour
         }
     }
 
+     public void RBLock(bool rotStatus)
+    {
+        playerRB.constraints = RigidbodyConstraints.None;
+        if(rotStatus)
+        {
+            rotStabilizeTime = 0;
+            playerRB.constraints = RigidbodyConstraints.FreezeRotationZ;
+            return;
+        }
+
+        if(!movingMode)
+        {
+            playerRB.constraints = RigidbodyConstraints.FreezePositionZ | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ ;
+        }
+        else
+        {
+            playerRB.constraints = RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ;
+        }
+    }
+
     IEnumerator rotTimer()
     {
         rotStabilizeTime = 5 * Time.deltaTime;
-        yield return new WaitForSeconds(2f);
-        rotStabilizeTime = Time.deltaTime;
+        
+        yield return new WaitForSeconds(0.8f);
+        rotStabilizeTime = 0f;
+        RBLock(false);
         StopCoroutine("rotTimer");
     }
 }

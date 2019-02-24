@@ -8,9 +8,9 @@ public class playerTrackRotation : MonoBehaviour
     {
         if(other.tag == "Player")
         {
-            other.GetComponent<speedControl>().maxSpeed = 6f;
-            other.GetComponent<rotation>().inRotation = true;
-            other.GetComponent<rotation>().StopAllCoroutines();
+            other.GetComponent<rotation>().RBLock(true);
+            other.GetComponent<speedControl>().maxSpeed = 8f;
+            other.GetComponent<rotation>().StopCoroutine("rotTimer");
             switch(this.tag)
             {
                 case "rotRight":
@@ -33,8 +33,7 @@ public class playerTrackRotation : MonoBehaviour
         {
             other.GetComponent<speedControl>().maxSpeed = 20f;
             other.GetComponent<rotation>().resetRotJoint();
-            other.GetComponent<rotation>().inRotation = false;
-            other.GetComponent<rotation>().movingMode =  !other.GetComponent<rotation>().movingMode;
+            other.GetComponent<rotation>().movingMode = !other.GetComponent<rotation>().movingMode;
             switch(this.tag)
             {
                 case "rotRight":
