@@ -36,3 +36,4 @@ sysinfo.txt
 *.unitypackage
 Course work unity/ProjectSettings/ProjectVersion.txt
 Course work unity/ProjectSettings/ProjectSettings.asset
+*.txt
