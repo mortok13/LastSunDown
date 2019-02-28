@@ -67,7 +67,7 @@ public class rotation : MonoBehaviour
             }
             //transform.rotation =  Quaternion.Lerp(transform.rotation, playerCurRot, 5 * Time.fixedDeltaTime);
             
-            playerRB.MovePosition(Vector3.Lerp(transform.position, playerRotPos, 5 * Time.deltaTime));
+            playerRB.MovePosition(Vector3.Lerp(transform.position, playerRotPos, 5*Time.deltaTime));
         }
     }
     public void rotStabilize(float angle)
@@ -122,7 +122,7 @@ public class rotation : MonoBehaviour
     {
         rotStabilizeTime = 5 * Time.deltaTime;
         yield return new WaitForSeconds(2f);
-        rotStabilizeTime = Time.deltaTime;
+        rotStabilizeTime = 0;
         StopCoroutine("rotTimer");
     }
 }
