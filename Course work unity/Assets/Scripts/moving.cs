@@ -73,32 +73,32 @@ public class moving : MonoBehaviour
         }
         else if(controls.forward || controls.back)
         {
-            if(controls.forward)
+            if(Mathf.Abs(accelTimer) > 0.1f)
             {
-                foreach(WheelCollider wheelColl in WheelColls)
-                {
-                    if(wheelColl.isGrounded)
-                    {
-                    wheelColl.motorTorque = speedControl.speed;
-                    }
-                wheelColl.brakeTorque = 0f;
-                }
-            }
-            else
-            {
-                if(speedControl.speed <= 0)
+                if(controls.forward)
                 {
                     foreach(WheelCollider wheelColl in WheelColls)
                     {
-                    wheelColl.brakeTorque = 0f;
                     wheelColl.motorTorque = speedControl.speed;
+                    wheelColl.brakeTorque = 0f;
                     }
                 }
                 else
                 {
-                    accelTimer -= 3*Time.deltaTime;
-                    WheelColls[0].brakeTorque += 1f;
-                    WheelColls[1].brakeTorque += 1f;
+                    if(speedControl.speed <= 0)
+                    {
+                        foreach(WheelCollider wheelColl in WheelColls)
+                        {
+                        wheelColl.brakeTorque = 0f;
+                        wheelColl.motorTorque = speedControl.speed;
+                        }
+                    }
+                    else
+                    {
+                        accelTimer -= 3*Time.deltaTime;
+                        WheelColls[0].brakeTorque += 1f;
+                        WheelColls[1].brakeTorque += 1f;
+                    }
                 }
             }
         }
@@ -120,7 +120,7 @@ public class moving : MonoBehaviour
                 }
             }
         }
-        Wheels[0].transform.Rotate(WheelColls[0].rpm *  Mathf.PI * Time.deltaTime, 0, 0);
+        Wheels[0].transform.Rotate(WheelColls[0].rpm * Mathf.PI * Time.deltaTime, 0, 0);
         Wheels[1].transform.Rotate(WheelColls[1].rpm * Mathf.PI * Time.deltaTime, 0, 0);
         //Debug.Log(torqueMoment + "tm");
 
@@ -167,6 +167,5 @@ public class moving : MonoBehaviour
             }
             */
         }
-        GetComponent<rotation>().deltaCurRotX(PlayerRB.rotation.eulerAngles.x);
     }
 }
