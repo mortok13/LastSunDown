@@ -19,7 +19,12 @@ public class moving : MonoBehaviour
         frontWheels = GameObject.FindGameObjectsWithTag("frontWheel");
         backWheels = GameObject.FindGameObjectsWithTag("backWheel");
         WheelColls = FindObjectsOfType<WheelCollider>();
+        foreach(WheelCollider wheelcol in WheelColls)
+        {
+            wheelcol.ConfigureVehicleSubsteps(15f, 5,10);
+        }
         PlayerRB = GetComponent<Rigidbody>();
+        //PlayerRB.centerOfMass = GetComponent<BoxCollider>().center;
         accelTimer = 0;
         PlayerRB.centerOfMass = new Vector3(0,-1,0);
     }
@@ -107,6 +112,9 @@ public class moving : MonoBehaviour
                     }
                 }
             }
+            else
+            {
+            }
         }
         else
         {
@@ -128,11 +136,11 @@ public class moving : MonoBehaviour
         }
         foreach(GameObject wheel in frontWheels)
         {
-            wheel.transform.Rotate(0, 0, - WheelColls[1].rpm * Mathf.PI * Time.deltaTime);
+            wheel.transform.Rotate(WheelColls[1].rpm * Mathf.PI * Time.deltaTime,0, 0 );
         }
         foreach(GameObject wheel in backWheels)
         {
-            wheel.transform.Rotate(0, 0, - WheelColls[1].rpm * Mathf.PI * Time.deltaTime);
+            wheel.transform.Rotate(WheelColls[1].rpm * Mathf.PI * Time.deltaTime,0, 0 );
         }
      //   Wheels[0].transform.Rotate(WheelColls[0].rpm * Mathf.PI * Time.deltaTime, 0, 0);
         //Wheels[1].transform.Rotate(WheelColls[1].rpm * Mathf.PI * Time.deltaTime, 0, 0);

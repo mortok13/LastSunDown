@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
 public class rotation : MonoBehaviour
 {
     //private float rotationTime = 1f;
@@ -21,6 +20,9 @@ public class rotation : MonoBehaviour
     void Start()
     {
         playerRB = GetComponent<Rigidbody>();
+        playerRB.constraints = RigidbodyConstraints.FreezeRotationZ |
+                               RigidbodyConstraints.FreezePositionZ |
+                               RigidbodyConstraints.FreezeRotationY;
         Stabilized = true;
         playerCurRot = transform.rotation.eulerAngles;
         playerCurRot.z = 0;
@@ -60,15 +62,13 @@ public class rotation : MonoBehaviour
         //Quaternion.Lerp(transform.rotation, Quaternion.Euler(transform.rotation.x, transform.rotation.y, 0), 0.1f);
         if(!inRotation)
         {
-            if(!(controls.rotLeft || controls.rotRight))
-            {
-                playerRB.MoveRotation(Quaternion.Lerp(transform.rotation, Quaternion.Euler(playerCurRot),  rotStabilizeTime)*  Quaternion.AngleAxis(0, Vector3.forward));
+                playerRB.MoveRotation(Quaternion.Lerp(transform.rotation, Quaternion.Euler(playerCurRot),  rotStabilizeTime));
                 //transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(playerCurRot),  Time.fixedDeltaTime * 5);
-            }
             //transform.rotation =  Quaternion.Lerp(transform.rotation, playerCurRot, 5 * Time.fixedDeltaTime);
             
-            playerRB.MovePosition(Vector3.Lerp(transform.position, playerRotPos, 5*Time.deltaTime));
+            playerRB.MovePosition(Vector3.Lerp(transform.position, playerRotPos,5*Time.deltaTime));
         }
+     //playerRB.MovePosition(Vector3.Lerp(transform.position, playerRotPos, 7*Time.deltaTime));
     }
     public void rotStabilize(float angle)
     {
@@ -82,20 +82,23 @@ public class rotation : MonoBehaviour
     public void setRotJoint(byte rotMode)
     {
        // movingMode = !movingMode;
+
+        playerRB.constraints = RigidbodyConstraints.FreezeRotationZ;
         gameObject.AddComponent(typeof(ConfigurableJoint));
         ConfigurableJoint CJ = GetComponent<ConfigurableJoint>();
         SoftJointLimit CJlimit = new SoftJointLimit();
-        CJlimit.limit = 0.1f;
+        CJlimit.limit = 0.328f;
         CJlimit.bounciness = 0;
         CJlimit.contactDistance = 0;
 
         CJ.xMotion = ConfigurableJointMotion.Limited;
         CJ.zMotion = ConfigurableJointMotion.Limited;
-        CJ.anchor = new Vector3(-0.1f * Mathf.Pow(-1, rotMode), 0, 0);
+        CJ.anchor = new Vector3(-0.328f * Mathf.Pow(-1, rotMode), 0, 0);
         CJ.linearLimit = CJlimit;
     }
     public void resetRotJoint()
     {
+       // playerRB.constraints = RigidbodyConstraints.FreezeRotationZ;
         Destroy(GetComponent<ConfigurableJoint>());
     }
     
@@ -120,9 +123,9 @@ public class rotation : MonoBehaviour
 
     IEnumerator rotTimer()
     {
-        rotStabilizeTime = 5 * Time.deltaTime;
-        yield return new WaitForSeconds(2f);
-        rotStabilizeTime = 0;
+        rotStabilizeTime = 10*Time.deltaTime;
+        yield return new WaitForSeconds(3f);
+        playerRB.constraints = RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ;
         StopCoroutine("rotTimer");
     }
 }

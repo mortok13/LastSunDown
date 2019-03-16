@@ -4,11 +4,15 @@ using UnityEngine;
 
 public class playerTrackRotation : MonoBehaviour
 {
+    void Awake()
+    {
+    //    Physics.IgnoreLayerCollision(9,10);
+    }
     void OnTriggerEnter(Collider other)
     {
         if(other.tag == "Player")
         {
-            other.GetComponent<speedControl>().maxSpeed = 6f;
+            other.GetComponent<speedControl>().maxSpeed = 1f;
             other.GetComponent<rotation>().inRotation = true;
             other.GetComponent<rotation>().StopAllCoroutines();
             switch(this.tag)
