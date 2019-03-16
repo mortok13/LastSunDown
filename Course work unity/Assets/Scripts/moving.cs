@@ -6,8 +6,9 @@ public class moving : MonoBehaviour
 {
  
     private Rigidbody PlayerRB;
-    private GameObject[] Wheels = new GameObject[2];
-    private WheelCollider[] WheelColls = new WheelCollider[2];
+    private GameObject[] frontWheels;
+    private GameObject[] backWheels;
+    private WheelCollider[] WheelColls;
     public static float accelTimer;
 
    // private float torqueMoment;
@@ -15,12 +16,12 @@ public class moving : MonoBehaviour
     void Start()
     {
       //  torqueMoment = 0;
-        Wheels[0] = GameObject.FindGameObjectWithTag("backWheel");
-        Wheels[1] = GameObject.FindGameObjectWithTag("frontWheel");
-        WheelColls[0] = GameObject.Find("bwCol").GetComponent<WheelCollider>();
-        WheelColls[1] = GameObject.Find("fwCol").GetComponent<WheelCollider>();
+        frontWheels = GameObject.FindGameObjectsWithTag("frontWheel");
+        backWheels = GameObject.FindGameObjectsWithTag("backWheel");
+        WheelColls = FindObjectsOfType<WheelCollider>();
         PlayerRB = GetComponent<Rigidbody>();
         accelTimer = 0;
+        PlayerRB.centerOfMass = new Vector3(0,-1,0);
     }
 
     void Update()
@@ -96,8 +97,13 @@ public class moving : MonoBehaviour
                     else
                     {
                         accelTimer -= 3*Time.deltaTime;
-                        WheelColls[0].brakeTorque += 1f;
-                        WheelColls[1].brakeTorque += 1f;
+                        foreach(WheelCollider wheelColl in WheelColls)
+                        {
+                        wheelColl.brakeTorque += 1f;
+                       // wheelColl.motorTorque = speedControl.speed;
+                        }
+                       // WheelColls[0].brakeTorque += 1f;
+                        //WheelColls[1].brakeTorque += 1f;
                     }
                 }
             }
@@ -116,12 +122,20 @@ public class moving : MonoBehaviour
                 }
                 else
                 {
-                        wheelColl.motorTorque = 0f;
+                    wheelColl.motorTorque = 0f;
                 }
             }
         }
-        Wheels[0].transform.Rotate(WheelColls[0].rpm * Mathf.PI * Time.deltaTime, 0, 0);
-        Wheels[1].transform.Rotate(WheelColls[1].rpm * Mathf.PI * Time.deltaTime, 0, 0);
+        foreach(GameObject wheel in frontWheels)
+        {
+            wheel.transform.Rotate(0, 0, - WheelColls[1].rpm * Mathf.PI * Time.deltaTime);
+        }
+        foreach(GameObject wheel in backWheels)
+        {
+            wheel.transform.Rotate(0, 0, - WheelColls[1].rpm * Mathf.PI * Time.deltaTime);
+        }
+     //   Wheels[0].transform.Rotate(WheelColls[0].rpm * Mathf.PI * Time.deltaTime, 0, 0);
+        //Wheels[1].transform.Rotate(WheelColls[1].rpm * Mathf.PI * Time.deltaTime, 0, 0);
         //Debug.Log(torqueMoment + "tm");
 
         if(controls.rotLeft || controls.rotRight)
