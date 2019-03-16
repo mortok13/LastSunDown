@@ -10,7 +10,11 @@ Material:
   m_Name: house 1x1
   m_Shader: {fileID: 4800000, guid: 933532a4fcc9baf4fa0491de14d08ed7, type: 3}
   m_ShaderKeywords: _EMISSION _METALLICSPECGLOSSMAP _OCCLUSIONMAP _SPECGLOSSMAP _SPECULAR_SETUP
+<<<<<<< HEAD
   m_LightmapFlags: 2
+=======
+  m_LightmapFlags: 1
+>>>>>>> 0425d093cb14f569ad2293feb9b1687f7cf47dfc
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: -1
