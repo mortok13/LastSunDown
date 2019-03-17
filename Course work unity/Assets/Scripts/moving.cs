@@ -21,7 +21,7 @@ public class moving : MonoBehaviour
         WheelColls = FindObjectsOfType<WheelCollider>();
         foreach(WheelCollider wheelcol in WheelColls)
         {
-            wheelcol.ConfigureVehicleSubsteps(10f, 7,10);
+            wheelcol.ConfigureVehicleSubsteps(10f, 7,14);
         }
         PlayerRB = GetComponent<Rigidbody>();
         //PlayerRB.centerOfMass = GetComponent<BoxCollider>().center;

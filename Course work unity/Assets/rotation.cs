@@ -76,7 +76,7 @@ public class rotation : MonoBehaviour
             }
             else
             {
-                
+
             }
            // playerRB.MoveRotation(new Quaternion(transform.rotation.x, ));
             playerRB.MovePosition(Vector3.Lerp(transform.position, playerRotPos, 5*Time.deltaTime));
@@ -94,13 +94,13 @@ public class rotation : MonoBehaviour
         gameObject.AddComponent(typeof(ConfigurableJoint));
         ConfigurableJoint CJ = GetComponent<ConfigurableJoint>();
         SoftJointLimit CJlimit = new SoftJointLimit();
-        CJlimit.limit = 0.328f;
+        CJlimit.limit = 0.33f;
         CJlimit.bounciness = 0;
         CJlimit.contactDistance = 0;
 
         CJ.xMotion = ConfigurableJointMotion.Limited;
         CJ.zMotion = ConfigurableJointMotion.Limited;
-        CJ.anchor = new Vector3(-0.328f * Mathf.Pow(-1, rotMode), 0, 0);
+        CJ.anchor = new Vector3(-0.33f * Mathf.Pow(-1, rotMode), 0, 0);
         CJ.linearLimit = CJlimit;
     }
     public void resetRotJoint()
@@ -131,7 +131,7 @@ public class rotation : MonoBehaviour
     IEnumerator rotTimer()
     {
         stabilized = false;
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(2.2f);
         if(!movingMode)
         {
         playerRB.constraints = RigidbodyConstraints.FreezeRotationZ |
