@@ -21,12 +21,12 @@ public class moving : MonoBehaviour
         WheelColls = FindObjectsOfType<WheelCollider>();
         foreach(WheelCollider wheelcol in WheelColls)
         {
-            wheelcol.ConfigureVehicleSubsteps(15f, 5,10);
+            wheelcol.ConfigureVehicleSubsteps(10f, 7,10);
         }
         PlayerRB = GetComponent<Rigidbody>();
         //PlayerRB.centerOfMass = GetComponent<BoxCollider>().center;
         accelTimer = 0;
-        //PlayerRB.centerOfMass = new Vector3(0,-1,0);
+      //  PlayerRB.centerOfMass = new Vector3(0,-0.07f,0);
     }
 
     void Update()

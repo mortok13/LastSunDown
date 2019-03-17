@@ -74,6 +74,10 @@ public class rotation : MonoBehaviour
             {
                 playerRB.MoveRotation(Quaternion.Normalize(qAngle));
             }
+            else
+            {
+                
+            }
            // playerRB.MoveRotation(new Quaternion(transform.rotation.x, ));
             playerRB.MovePosition(Vector3.Lerp(transform.position, playerRotPos, 5*Time.deltaTime));
         }

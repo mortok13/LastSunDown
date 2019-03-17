@@ -35,7 +35,7 @@ public class playerTrackRotation : MonoBehaviour
     {   
         if(other.tag == "Player")
         {
-            other.GetComponent<speedControl>().maxSpeed = 30f;
+            other.GetComponent<speedControl>().maxSpeed = 60f;
             other.GetComponent<rotation>().resetRotJoint();
             other.GetComponent<rotation>().inRotation = false;
           //  other.GetComponent<rotation>().stab = false;
