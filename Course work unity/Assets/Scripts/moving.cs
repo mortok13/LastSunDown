@@ -26,7 +26,7 @@ public class moving : MonoBehaviour
         PlayerRB = GetComponent<Rigidbody>();
         //PlayerRB.centerOfMass = GetComponent<BoxCollider>().center;
         accelTimer = 0;
-        PlayerRB.centerOfMass = new Vector3(0,-1,0);
+        //PlayerRB.centerOfMass = new Vector3(0,-1,0);
     }
 
     void Update()
@@ -136,11 +136,11 @@ public class moving : MonoBehaviour
         }
         foreach(GameObject wheel in frontWheels)
         {
-            wheel.transform.Rotate(WheelColls[1].rpm * Mathf.PI * Time.deltaTime,0, 0 );
+            wheel.transform.Rotate(WheelColls[1].rpm * Mathf.PI/2 * Time.deltaTime,0, 0 );
         }
         foreach(GameObject wheel in backWheels)
         {
-            wheel.transform.Rotate(WheelColls[1].rpm * Mathf.PI * Time.deltaTime,0, 0 );
+            wheel.transform.Rotate(WheelColls[1].rpm * Mathf.PI/2 * Time.deltaTime,0, 0 );
         }
      //   Wheels[0].transform.Rotate(WheelColls[0].rpm * Mathf.PI * Time.deltaTime, 0, 0);
         //Wheels[1].transform.Rotate(WheelColls[1].rpm * Mathf.PI * Time.deltaTime, 0, 0);
@@ -188,6 +188,55 @@ public class moving : MonoBehaviour
                 torqueMoment += Mathf.Sign(torqueMoment) * 2.5f;
             }
             */
+        }
+    }
+
+    public void gameOver()
+    {
+        this.enabled = false;
+        GetComponent<rotation>().StopAllCoroutines();
+        GetComponent<rotation>().enabled = false;
+        GetComponent<speedControl>().enabled = false;
+        GetComponent<controls>().enabled = false;
+        GetComponent<MeshCollider>().enabled = true;
+       // GetComponent<playerTrackRotation>().enabled = false;
+        foreach(GameObject wheel in frontWheels)
+        {
+            wheel.transform.parent = null;
+            wheel.GetComponent<MeshCollider>().enabled = true;
+            if(!wheel.GetComponent<Rigidbody>())
+            {
+                wheel.AddComponent(typeof(Rigidbody));
+            }
+            wheel.GetComponent<Rigidbody>().mass = 1;            
+        }
+        
+        foreach(GameObject wheel in backWheels)
+        {
+            wheel.GetComponent<MeshCollider>().enabled = true;
+        }
+
+        foreach(BoxCollider bc in GetComponents<BoxCollider>())
+        {
+            bc.enabled = false;
+        }
+
+        
+
+        PlayerRB.mass = 2;
+        PlayerRB.constraints = RigidbodyConstraints.None;
+     //   GetComponent<MeshCollider>().enabled = true;
+    }
+
+
+    void OnTriggerEnter(Collider other)
+    {
+       // Debug.Log("triggered");
+        if(other.tag == "ground")
+        {
+            Debug.Log("triggered");
+            gameOver();
+           // this.enabled = false;
         }
     }
 }

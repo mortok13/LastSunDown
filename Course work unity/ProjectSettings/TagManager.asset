@@ -12,6 +12,7 @@ TagManager:
   - rotLeft
   - rotRight
   - wheelCol
+  - ground
   layers:
   - Default
   - TransparentFX
