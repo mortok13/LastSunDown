@@ -200,7 +200,7 @@ public class moving : MonoBehaviour
         GetComponent<rotation>().enabled = false;
         GetComponent<speedControl>().enabled = false;
         GetComponent<controls>().enabled = false;
-        GetComponent<MeshCollider>().enabled = true;
+        //GetComponent<MeshCollider>().enabled = true;
        // GetComponent<playerTrackRotation>().enabled = false;
 
         foreach(GameObject col in GameObject.FindGameObjectsWithTag("wheelCol"))
@@ -232,7 +232,7 @@ public class moving : MonoBehaviour
 
         PlayerRB.mass = 2;
         PlayerRB.constraints = RigidbodyConstraints.None;
-     //   GetComponent<MeshCollider>().enabled = true;
+       GetComponent<MeshCollider>().enabled = true;
     }
 
 

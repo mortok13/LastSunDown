@@ -54,7 +54,7 @@ public class rotation : MonoBehaviour
             playerRotPos.z = Mathf.Round(playerRotPos.z);
         }
         Debug.Log(rotStabilizeTime);
-        Debug.Log(playerCurRot);
+       // Debug.Log(playerCurRot);
         Debug.Log(transform.rotation);
         playerCurRot.z = 0;
         playerCurRot.x = transform.rotation.eulerAngles.x;
@@ -94,13 +94,13 @@ public class rotation : MonoBehaviour
         gameObject.AddComponent(typeof(ConfigurableJoint));
         ConfigurableJoint CJ = GetComponent<ConfigurableJoint>();
         SoftJointLimit CJlimit = new SoftJointLimit();
-        CJlimit.limit = 0.33f;
+        CJlimit.limit = 0.32f;
         CJlimit.bounciness = 0;
         CJlimit.contactDistance = 0;
 
         CJ.xMotion = ConfigurableJointMotion.Limited;
         CJ.zMotion = ConfigurableJointMotion.Limited;
-        CJ.anchor = new Vector3(-0.33f * Mathf.Pow(-1, rotMode), 0, 0);
+        CJ.anchor = new Vector3(-0.32f * Mathf.Pow(-1, rotMode), 0, 0);
         CJ.linearLimit = CJlimit;
     }
     public void resetRotJoint()
@@ -136,7 +136,7 @@ public class rotation : MonoBehaviour
         {
         playerRB.constraints = RigidbodyConstraints.FreezeRotationZ |
                                RigidbodyConstraints.FreezeRotationY |
-                               RigidbodyConstraints.FreezePositionX;
+                               RigidbodyConstraints.FreezePositionZ;
         }
         else
         {
