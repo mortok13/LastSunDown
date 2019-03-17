@@ -21,7 +21,7 @@ public class moving : MonoBehaviour
         WheelColls = FindObjectsOfType<WheelCollider>();
         foreach(WheelCollider wheelcol in WheelColls)
         {
-            wheelcol.ConfigureVehicleSubsteps(10f, 7,14);
+            wheelcol.ConfigureVehicleSubsteps(15f, 7,14);
         }
         PlayerRB = GetComponent<Rigidbody>();
         //PlayerRB.centerOfMass = GetComponent<BoxCollider>().center;
@@ -152,6 +152,7 @@ public class moving : MonoBehaviour
             {
                 // transform.Rotate(-Time.fixedDeltaTime*Mathf.PI*20, 0, 0);
                 PlayerRB.AddTorque(transform.right * (-10f));
+               //PlayerRB.MoveRotation(Quaternion.AngleAxis(Time.deltaTime, new Vector3(0,0,-1)));
                // torqueMoment -= 5;
                 //PlayerRB.MoveRotation(Quaternion.Lerp(transform.rotation, Quaternion.Euler(transform.rotation.x + 1f, GetComponent<rotation>().getCurRot().y, 0), Time.fixedDeltaTime * 5));
                 //GetComponent<rotation>().deltaCurRotX(1f);
@@ -161,6 +162,7 @@ public class moving : MonoBehaviour
             if(controls.rotRight)
             {
                 PlayerRB.AddTorque(transform.right * (10f));
+               // PlayerRB.MoveRotation(Quaternion.AngleAxis(Time.deltaTime, new Vector3(0,0,1)));
                 //torqueMoment += 5;
                 // transform.Rotate(Time.fixedDeltaTime*Mathf.PI*20, 0, 0);
                 // PlayerRB.MoveRotation(Quaternion.Lerp(transform.rotation, Quaternion.Euler(transform.rotation.x + 1f, GetComponent<rotation>().getCurRot().y, 0), Time.fixedDeltaTime * 5));
@@ -200,6 +202,11 @@ public class moving : MonoBehaviour
         GetComponent<controls>().enabled = false;
         GetComponent<MeshCollider>().enabled = true;
        // GetComponent<playerTrackRotation>().enabled = false;
+
+        foreach(GameObject col in GameObject.FindGameObjectsWithTag("wheelCol"))
+        {
+            col.SetActive(false);
+        }
         foreach(GameObject wheel in frontWheels)
         {
             wheel.transform.parent = null;
