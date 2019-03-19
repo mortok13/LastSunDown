@@ -122,11 +122,11 @@ public class moving : MonoBehaviour
             {
                 if(wheelColl.motorTorque > 0.2f)
                 {
-                    wheelColl.motorTorque -= 0.4f;
+                    wheelColl.motorTorque -= 0.39f;
                 }
                 else if(wheelColl.motorTorque < -0.2f)
                 {
-                    wheelColl.motorTorque += 0.4f;
+                    wheelColl.motorTorque += 0.39f;
                 }
                 else
                 {

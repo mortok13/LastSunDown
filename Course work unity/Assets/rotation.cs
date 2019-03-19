@@ -10,6 +10,8 @@ public class rotation : MonoBehaviour
     private Vector3 playerRotPos;
     private bool stabilized;
     public bool inRotation;
+    private Vector3 velocity;
+   // private float playerCurRotEulerY;
 
     private Rigidbody playerRB;
 
@@ -19,10 +21,12 @@ public class rotation : MonoBehaviour
 
     void Start()
     {
+        //playerCurRotEulerY = 0;
         playerRB = GetComponent<Rigidbody>();
        // Stabilized = true;
         playerCurRot = Quaternion.Euler(0,90,0);
         playerCurRot.z = 0;
+        qAngle.z = 0;
 
         rotStabilizeTime = 5*Time.deltaTime;
         playerRotPos = transform.position;
@@ -53,20 +57,30 @@ public class rotation : MonoBehaviour
         {
             playerRotPos.z = Mathf.Round(playerRotPos.z);
         }
-        Debug.Log(rotStabilizeTime);
+      //  Debug.Log(rotStabilizeTime);
        // Debug.Log(playerCurRot);
-        Debug.Log(transform.rotation);
+      //  Debug.Log(transform.rotation);
+        Debug.Log(velocity);
         playerCurRot.z = 0;
         playerCurRot.x = transform.rotation.eulerAngles.x;
 
-
+       // qAngle.y = Mathf.LerpUnclamped(transform.rotation.y, playerCurRot.y, rotStabilizeTime);
+        //qAngle.z = Mathf.LerpUnclamped(transform.rotation.z, 0f, rotStabilizeTime);
+       // qAngle.w = transform.rotation.w;
+       // qAngle.x = transform.rotation.x;
+       // qAngle.y = Mathf.LerpUnclamped(transform.rotation.y, playerCurRot.y, rotStabilizeTime);
+       // qAngle.z = Mathf.LerpUnclamped(transform.rotation.z, 0f, rotStabilizeTime);
+        //qAngle.w = transform.rotation.w;
+              //  qAngle.z = Mathf.LerpUnclamped(transform.rotation.z, 0f, rotStabilizeTime);
         qAngle.x = transform.rotation.x;
         qAngle.y = Mathf.LerpUnclamped(transform.rotation.y, playerCurRot.y, rotStabilizeTime);
-        qAngle.z = Mathf.LerpUnclamped(transform.rotation.z, 0f, rotStabilizeTime);
         qAngle.w = transform.rotation.w;
     }
     void FixedUpdate()
     {
+        qAngle.x = transform.rotation.x;
+        qAngle.y = Mathf.LerpUnclamped(transform.rotation.y, playerCurRot.y, rotStabilizeTime);
+        qAngle.w = transform.rotation.w;
         if(!inRotation)
         {
            // playerRB.MoveRotation(Quaternion.Lerp(transform.rotation, Quaternion.Euler(playerCurRot) ,  rotStabilizeTime));
@@ -84,13 +98,18 @@ public class rotation : MonoBehaviour
     }
     public void rotStabilize(float angle) 
     {
+       /* playerCurRotEulerY += angle;
+        if(Mathf.Abs(playerCurRotEulerY) == 360)
+        {
+            playerCurRotEulerY = 0;
+        }*/
         playerCurRot *= Quaternion.Euler(0,angle,0);
         playerRB.constraints = RigidbodyConstraints.None;
         StartCoroutine("rotTimer");
     }
     public void setRotJoint(byte rotMode)
     {
-        playerRB.constraints = RigidbodyConstraints.FreezeRotationZ;
+        playerRB.constraints = RigidbodyConstraints.FreezeRotationZ | RigidbodyConstraints.FreezeRotationX;
         gameObject.AddComponent(typeof(ConfigurableJoint));
         ConfigurableJoint CJ = GetComponent<ConfigurableJoint>();
         SoftJointLimit CJlimit = new SoftJointLimit();
@@ -130,20 +149,36 @@ public class rotation : MonoBehaviour
 
     IEnumerator rotTimer()
     {
+        velocity = playerRB.velocity;
         stabilized = false;
-        yield return new WaitForSeconds(1.5f);
-        if(!movingMode)
+        playerRB.Sleep();
+        yield return null;
+        playerRB.WakeUp();
+        playerRB.velocity = velocity;
+      //  if(playerRB.velocity.y != 0)
+      //  {
+      //      rotStabilizeTime = 0.5f;
+      //  }
+       // yield return new WaitUntil(() => playerRB.velocity.y == 0);
+        /*while(transform.rotation.eulerAngles.y != playerCurRotEulerY && playerRB.velocity.y != 0)
         {
-        playerRB.constraints = RigidbodyConstraints.FreezeRotationZ |
-                               RigidbodyConstraints.FreezeRotationY |
-                               RigidbodyConstraints.FreezePositionZ;
-        }
-        else
+            transform.Rotate(Vector3.up, Time.deltaTime * Mathf.Sign(transform.rotation.eulerAngles.y  - playerCurRotEulerY));
+            yield return null;
+        }*/
+        yield return new WaitUntil(() => Mathf.Abs(playerRB.velocity.y) <= 0.5f);
+        yield return new WaitForSeconds(2f);
+     //   if(!movingMode)
+      //  {
+            playerRB.constraints = RigidbodyConstraints.FreezeRotationZ |
+                                   RigidbodyConstraints.FreezeRotationY;
+                                  // RigidbodyConstraints.FreezePositionZ;
+       // }
+       /*else
         {
-        playerRB.constraints = RigidbodyConstraints.FreezeRotationZ |
-                               RigidbodyConstraints.FreezeRotationY |
-                               RigidbodyConstraints.FreezePositionX;
-        }
+            playerRB.constraints = RigidbodyConstraints.FreezeRotationZ |
+                                   RigidbodyConstraints.FreezeRotationY;
+                                 //  RigidbodyConstraints.FreezePositionX;
+        }*/
         stabilized = true;
         StopCoroutine("rotTimer");
     }
