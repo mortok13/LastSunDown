@@ -134,13 +134,16 @@ public class moving : MonoBehaviour
                 }
             }
         }
-        foreach(GameObject wheel in frontWheels)
+        if(Mathf.Abs(PlayerRB.velocity.magnitude) >= 0.1f)
         {
-            wheel.transform.Rotate(WheelColls[1].rpm * Mathf.PI/2 * Time.deltaTime,0, 0 );
-        }
-        foreach(GameObject wheel in backWheels)
-        {
-            wheel.transform.Rotate(WheelColls[1].rpm * Mathf.PI/2 * Time.deltaTime,0, 0 );
+            foreach(GameObject wheel in frontWheels)
+            {
+                wheel.transform.Rotate(WheelColls[1].rpm * Mathf.PI/2 * Time.deltaTime,0, 0 );
+            }
+            foreach(GameObject wheel in backWheels)
+            {
+                wheel.transform.Rotate(WheelColls[1].rpm * Mathf.PI/2 * Time.deltaTime,0, 0 );
+            }
         }
      //   Wheels[0].transform.Rotate(WheelColls[0].rpm * Mathf.PI * Time.deltaTime, 0, 0);
         //Wheels[1].transform.Rotate(WheelColls[1].rpm * Mathf.PI * Time.deltaTime, 0, 0);
