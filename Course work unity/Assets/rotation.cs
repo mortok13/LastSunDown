@@ -41,7 +41,6 @@ public class rotation : MonoBehaviour
         //StartCoroutine("rotTimer");
         StopAllCoroutines();
         playerRB.constraints = RigidbodyConstraints.FreezeRotationZ |
-                               RigidbodyConstraints.FreezePositionZ |
                                RigidbodyConstraints.FreezeRotationY;
     }
 

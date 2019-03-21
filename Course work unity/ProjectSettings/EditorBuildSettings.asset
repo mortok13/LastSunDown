@@ -17,7 +17,7 @@ EditorBuildSettings:
   - enabled: 0
     path: 
     guid: 00000000000000000000000000000000
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/alpha.unity
     guid: 6089af2ccbd14fc469c9ae2ca19ceaf7
   - enabled: 1
