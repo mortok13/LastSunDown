@@ -4,19 +4,18 @@ ModelImporter:
   serializedVersion: 23
   fileIDToRecycleName:
     100000: //RootNode
-    100002: pCube108
+    100002: CrossRoad:pCube108
     400000: //RootNode
-    400002: pCube108
-    2100000: pCube108Mat
-    2300000: pCube108
-    3300000: pCube108
-    4300000: pCube108
-    6400000: pCube108
+    400002: CrossRoad:pCube108
+    2100000: CrossRoad_pCube108Mat
+    2300000: CrossRoad:pCube108
+    3300000: CrossRoad:pCube108
+    4300000: CrossRoad:pCube108
   externalObjects:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: pCube108Mat
+      name: CrossRoad_pCube108Mat
     second: {fileID: 2100000, guid: 24461ab4eebe2024eaa10a6f2f6aa4a6, type: 2}
   materials:
     importMaterials: 1
@@ -50,7 +49,7 @@ ModelImporter:
     lODScreenPercentages: []
     globalScale: 1
     meshCompression: 0
-    addColliders: 1
+    addColliders: 0
     useSRGBMaterialColor: 1
     importVisibility: 1
     importBlendShapes: 1
