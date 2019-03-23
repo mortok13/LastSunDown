@@ -5,14 +5,17 @@ using UnityEngine;
 public class moving : MonoBehaviour
 {
  
-    private Rigidbody PlayerRB;
+    public static Rigidbody PlayerRB;
     private GameObject[] frontWheels;
     private GameObject[] backWheels;
     private WheelCollider[] WheelColls;
     public static float accelTimer;
 
    // private float torqueMoment;
-
+    void Awake()
+    {
+                PlayerRB = GetComponent<Rigidbody>();
+    }
     void Start()
     {
       //  torqueMoment = 0;
@@ -23,7 +26,7 @@ public class moving : MonoBehaviour
         {
             wheelcol.ConfigureVehicleSubsteps(15f, 7,14);
         }
-        PlayerRB = GetComponent<Rigidbody>();
+       // PlayerRB = GetComponent<Rigidbody>();
         //PlayerRB.centerOfMass = GetComponent<BoxCollider>().center;
         accelTimer = 0;
       //  PlayerRB.centerOfMass = new Vector3(0,-0.07f,0);

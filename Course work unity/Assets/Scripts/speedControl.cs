@@ -13,7 +13,7 @@ public class speedControl : MonoBehaviour
     void Start()
     {
             distance = 0f;
-            maxSpeed = 60f;
+            maxSpeed = 100f;
     }
     void FixedUpdate()
     {
