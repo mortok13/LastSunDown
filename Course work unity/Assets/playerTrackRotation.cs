@@ -22,7 +22,7 @@ public class playerTrackRotation : MonoBehaviour
                 other.GetComponent<rotation>().setRotJoint(1);
                 break;
                 case "rotLeft":
-                other.GetComponent<rotation>().setRotJoint(0);
+                other.GetComponent<rotation>().setRotJoint(2);
                 break;
             }
         }
@@ -40,7 +40,7 @@ public class playerTrackRotation : MonoBehaviour
             other.GetComponent<rotation>().resetRotJoint();
             other.GetComponent<rotation>().inRotation = false;
           //  other.GetComponent<rotation>().stab = false;
-             other.GetComponent<rotation>().movingMode =  !other.GetComponent<rotation>().movingMode;
+            other.GetComponent<rotation>().movingMode =  !other.GetComponent<rotation>().movingMode;
             switch(this.tag)
             {
                 case "rotRight":
