@@ -89,7 +89,7 @@ public class rotation : MonoBehaviour
 
             }
            // playerRB.MoveRotation(new Quaternion(transform.rotation.x, ));
-            moving.PlayerRB.MovePosition(Vector3.Lerp(transform.position, playerRotPos, 5*Time.deltaTime));
+            moving.PlayerRB.MovePosition(Vector3.Lerp(transform.position, playerRotPos, Time.deltaTime/5));
         }
     }
     public void rotStabilize(float angle) 
@@ -100,7 +100,8 @@ public class rotation : MonoBehaviour
     }
     public void setRotJoint(byte rotMode)
     {
-        moving.PlayerRB.constraints = RigidbodyConstraints.FreezeRotationZ | RigidbodyConstraints.FreezeRotationX;
+        moving.PlayerRB.constraints = RigidbodyConstraints.FreezeRotationZ
+                                    | RigidbodyConstraints.FreezeRotationX;
         //playerRB.constraints = RigidbodyConstraints.None;
         gameObject.AddComponent(typeof(ConfigurableJoint));
         ConfigurableJoint CJ = GetComponent<ConfigurableJoint>();
@@ -162,9 +163,10 @@ public class rotation : MonoBehaviour
        // yield return new WaitUntil(() => Mathf.Abs(playerRB.velocity.y) <= 0.5f);
      //   if(!movingMode)
       //  {
+        moving.PlayerRB.constraints = RigidbodyConstraints.FreezeRotationX;
         yield return new WaitForSeconds(2f);
-        moving.PlayerRB.constraints = RigidbodyConstraints.FreezeRotationZ |
-                               RigidbodyConstraints.FreezeRotationY;
+        moving.PlayerRB.constraints = RigidbodyConstraints.FreezeRotationZ
+                                    | RigidbodyConstraints.FreezeRotationY;
                                   // RigidbodyConstraints.FreezePositionZ;
        // }
        /*else
