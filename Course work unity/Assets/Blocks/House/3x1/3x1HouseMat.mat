@@ -7,10 +7,10 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: videoStoreMat
-  m_Shader: {fileID: 4800000, guid: 02b80ff9af1328b47849b07f23a83e7c, type: 3}
+  m_Name: 3x1HouseMat
+  m_Shader: {fileID: 4800000, guid: 242e6c81842634f4cb29e1b5bfdcc4c4, type: 3}
   m_ShaderKeywords: 
-  m_LightmapFlags: 1
+  m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: -1
@@ -41,36 +41,32 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - _SampleTexture2D_23D87795_Texture:
-        m_Texture: {fileID: 2800000, guid: ca9d2b02dfa21324ab6042d55934487d, type: 3}
+    - _SampleTexture2D_317F3931_Texture:
+        m_Texture: {fileID: 2800000, guid: d89a3fc892593444f8933e5cd6acd51c, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - _SampleTexture2D_2834BD67_Texture:
-        m_Texture: {fileID: 2800000, guid: 60c7319400b4b864294a17877e56e843, type: 3}
+    - _SampleTexture2D_7F14504D_Texture:
+        m_Texture: {fileID: 2800000, guid: 9e756dd1385c2144990f3440c6fc9c4c, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - _SampleTexture2D_5EAE8555_Texture:
-        m_Texture: {fileID: 2800000, guid: 9aa1143ec7b97b14d8be04254e26f165, type: 3}
+    - _SampleTexture2D_C658E83C_Texture:
+        m_Texture: {fileID: 2800000, guid: 0db38aca5c30ca246a10191a446dd5b5, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - _SampleTexture2D_611D4A37_Texture:
-        m_Texture: {fileID: 2800000, guid: 9be5a4b78ef5cee4f9376809ed942a59, type: 3}
+    - _SampleTexture2D_D5E45B65_Texture:
+        m_Texture: {fileID: 2800000, guid: 6d0078e338384344cbe407f05e689439, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - _SampleTexture2D_73E6695A_Texture:
-        m_Texture: {fileID: 2800000, guid: 577a89cfe3121564487854b806b4a9c3, type: 3}
+    - _SampleTexture2D_D60A317_Texture:
+        m_Texture: {fileID: 2800000, guid: 79d7d3455d4161a4b9c7bd1fb216c216, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - _SampleTexture2D_A1D2C779_Texture:
-        m_Texture: {fileID: 2800000, guid: a951db403ad929a40a4bc96c4121d72d, type: 3}
+    - _SampleTexture2D_EFEBBD84_Texture:
+        m_Texture: {fileID: 2800000, guid: ecbb57da69bea0b4c9cb72ed484f419c, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - _SampleTexture2D_C7F57A7B_Texture:
-        m_Texture: {fileID: 2800000, guid: 3603228d69bfa8a4ca1f86b7c034bad8, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _SampleTexture2D_D5A0504E_Texture:
-        m_Texture: {fileID: 2800000, guid: b357425b8e2b0c4498bdf698669f0542, type: 3}
+    - _SampleTexture2D_FBDA103A_Texture:
+        m_Texture: {fileID: 2800000, guid: ecbb57da69bea0b4c9cb72ed484f419c, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _SpecGlossMap:
@@ -78,10 +74,8 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
-    - Vector1_1883361B: 0
-    - Vector1_20D06744: 1
-    - Vector1_3FF7342C: 0
-    - Vector1_9C316E68: 1
+    - Vector1_4114295E: 0.1
+    - Vector1_525FBBFC: 25
     - _AlphaClip: 0
     - _Blend: 0
     - _BumpScale: 1
@@ -101,11 +95,11 @@ Material:
     - _WorkflowMode: 1
     - _ZWrite: 1
     m_Colors:
-    - Color_2D9507BD: {r: 0.7830189, g: 0.33515427, b: 0, a: 0}
-    - Color_41AD62FE: {r: 0.23486394, g: 0.012682426, b: 0.8962264, a: 0}
-    - Color_58A7A56C: {r: 0.5998573, g: 0.3160377, b: 1, a: 0}
-    - Color_58B6F9F9: {r: 1, g: 1, b: 1, a: 0}
-    - Color_865AB378: {r: 1, g: 0.0235849, b: 0.0235849, a: 0}
+    - Color_12A141E6: {r: 0.22384676, g: 0, b: 0.6792453, a: 0}
+    - Color_645FE6F1: {r: 0.13964568, g: 0.30631956, b: 1.0856326, a: 0}
+    - Color_67C765CE: {r: 0.7578583, g: 0, b: 0.75488627, a: 0}
+    - Color_9A04E140: {r: 1.7207954, g: 1.0540998, b: 0, a: 0}
+    - Color_B7AA1623: {r: 0.7476493, g: 0.42332655, b: 0, a: 0}
     - _Color: {r: 0.5, g: 0.5, b: 0.5, a: 1}
-    - _EmissionColor: {r: 0.3408861, g: 0.003114995, b: 0.6603774, a: 1}
+    - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
