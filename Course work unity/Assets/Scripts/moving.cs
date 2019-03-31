@@ -29,7 +29,7 @@ public class moving : MonoBehaviour
        // PlayerRB = GetComponent<Rigidbody>();
         //PlayerRB.centerOfMass = GetComponent<BoxCollider>().center;
         accelTimer = 0;
-      //  PlayerRB.centerOfMass = new Vector3(0,-0.07f,0);
+      //  PlayerRB.centerOfMass = new Vector3(-0.05f,-0.03f,0);
     }
 
     void Update()

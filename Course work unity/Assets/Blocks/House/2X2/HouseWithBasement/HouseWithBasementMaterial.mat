@@ -1,0 +1,119 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: HouseWithBasementMaterial
+  m_Shader: {fileID: 4800000, guid: 3e9208c7123b9214c9edf9ade484fb2b, type: 3}
+  m_ShaderKeywords: 
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap:
+    MotionVector: User
+  disabledShaderPasses:
+  - MOTIONVECTORS
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _BumpMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _EmissionMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MetallicGlossMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _NormalFromTexture_2115BFE2_Texture:
+        m_Texture: {fileID: 2800000, guid: 5ca020fd7ead6144e94871191511fc6a, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _OcclusionMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SampleTexture2D_26DDA3A4_Texture:
+        m_Texture: {fileID: 2800000, guid: 40d76c73794d29544a7065fd24cad316, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SampleTexture2D_3487A4E1_Texture:
+        m_Texture: {fileID: 2800000, guid: 38ce56f3c9e9f4542859b95092d2138d, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SampleTexture2D_67403496_Texture:
+        m_Texture: {fileID: 2800000, guid: 5ca020fd7ead6144e94871191511fc6a, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SampleTexture2D_6773C173_Texture:
+        m_Texture: {fileID: 2800000, guid: 5d79a9ca38300e74997fc0db2bccdc4f, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SampleTexture2D_771ECFF_Texture:
+        m_Texture: {fileID: 2800000, guid: 7875e07d2bd21c74cb12ca0d5d490f58, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SampleTexture2D_87274841_Texture:
+        m_Texture: {fileID: 2800000, guid: f400b3e03e320774687d70250bf7ef06, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SampleTexture2D_B5AC746C_Texture:
+        m_Texture: {fileID: 2800000, guid: d2632ab939a970448817cbefc4ff1ddc, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SampleTexture2D_C074FB0B_Texture:
+        m_Texture: {fileID: 2800000, guid: 5ca020fd7ead6144e94871191511fc6a, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SampleTexture2D_E6779648_Texture:
+        m_Texture: {fileID: 2800000, guid: 58109f6807fc5554b8d76255e819225c, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SpecGlossMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - Vector1_3F62C57F: 16.11
+    - Vector1_DA272C20: 5
+    - _AlphaClip: 0
+    - _Blend: 0
+    - _BumpScale: 1
+    - _Cull: 2
+    - _Cutoff: 0.5
+    - _DstBlend: 0
+    - _GlossMapScale: 1
+    - _Glossiness: 0.5
+    - _GlossyReflections: 1
+    - _Metallic: 0
+    - _OcclusionStrength: 1
+    - _ReceiveShadows: 1
+    - _SmoothnessTextureChannel: 0
+    - _SpecularHighlights: 1
+    - _SrcBlend: 1
+    - _Surface: 0
+    - _WorkflowMode: 1
+    - _ZWrite: 1
+    m_Colors:
+    - Color_16A85930: {r: 0.585611, g: 0, b: 0.0630658, a: 0}
+    - Color_3914AA50: {r: 0, g: 0.023775948, b: 1.1590774, a: 0}
+    - Color_57483B53: {r: 5.992157, g: 0, b: 0.1254902, a: 0}
+    - Color_A69D5367: {r: 0.110918716, g: 0, b: 2.1185474, a: 0}
+    - Color_B22DDA65: {r: 0.33286324, g: 0.01783196, b: 0.8618781, a: 0}
+    - Color_B3885768: {r: 0.41396326, g: 0, b: 0.4450105, a: 0}
+    - Color_F617B096: {r: 0, g: 2.270603, b: 0.8202702, a: 0}
+    - _Color: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+    - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+    - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}

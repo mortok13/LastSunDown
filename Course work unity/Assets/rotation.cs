@@ -89,7 +89,7 @@ public class rotation : MonoBehaviour
 
             }
            // playerRB.MoveRotation(new Quaternion(transform.rotation.x, ));
-            moving.PlayerRB.MovePosition(Vector3.Lerp(transform.position, playerRotPos, Time.deltaTime/5));
+            moving.PlayerRB.MovePosition(Vector3.Lerp(transform.position, playerRotPos, rotStabilizeTime+0.01f));
         }
     }
     public void rotStabilize(float angle) 
@@ -165,8 +165,8 @@ public class rotation : MonoBehaviour
       //  {
         moving.PlayerRB.constraints = RigidbodyConstraints.FreezeRotationX;
         yield return new WaitForSeconds(2f);
-        moving.PlayerRB.constraints = RigidbodyConstraints.FreezeRotationZ
-                                    | RigidbodyConstraints.FreezeRotationY;
+        moving.PlayerRB.constraints = RigidbodyConstraints.FreezeRotationY;
+                                   // | RigidbodyConstraints.FreezeRotationZ;
                                   // RigidbodyConstraints.FreezePositionZ;
        // }
        /*else
@@ -178,19 +178,22 @@ public class rotation : MonoBehaviour
         stabilized = true;
         StopCoroutine("getX");
         rotStabilizeTime = 0;
+        yield return new WaitUntil(() => transform.rotation.eulerAngles.z <= 0.0001f && transform.rotation.eulerAngles.z >= -0.0001f);
+        moving.PlayerRB.constraints = RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ;
         StopCoroutine("rotTimer");
+        //moving.PlayerRB.constraints |= RigidbodyConstraints.FreezePositionZ;
     }
     IEnumerator getX()
     {
         while(true)
         {
            // playerCurRot.x = transform.rotation.eulerAngles.x;
-            rotStabilizeTime += Time.deltaTime/5;
+            rotStabilizeTime += Time.deltaTime/10;
             playerCurRot.x = transform.rotation.eulerAngles.x;
             qAngle = Quaternion.Euler(playerCurRot);
            // playerCurRot.x = transform.rotation.eulerAngles.x;
            // qAngle.w = transform.rotation.w;
-            yield return null;
+            yield return new WaitForEndOfFrame();
         }
      //   yield return null;
     }
