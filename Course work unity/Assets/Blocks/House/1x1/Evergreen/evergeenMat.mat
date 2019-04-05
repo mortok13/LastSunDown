@@ -8,14 +8,16 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: evergeenMat
-  m_Shader: {fileID: 4800000, guid: 933532a4fcc9baf4fa0491de14d08ed7, type: 3}
+  m_Shader: {fileID: 4800000, guid: e4ddddad97c4b7746b84dabd15df5774, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: -1
-  stringTagMap: {}
-  disabledShaderPasses: []
+  stringTagMap:
+    MotionVector: User
+  disabledShaderPasses:
+  - MOTIONVECTORS
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
@@ -39,11 +41,37 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _SampleTexture2D_14BF6872_Texture:
+        m_Texture: {fileID: 2800000, guid: f667c864367543b41bc355c6ea6922be, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SampleTexture2D_24BDA38C_Texture:
+        m_Texture: {fileID: 2800000, guid: 56dd61d18eec9ba4ca5fef6cb1cc827d, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SampleTexture2D_2F5E269_Texture:
+        m_Texture: {fileID: 2800000, guid: e1822327399a39c409c3b3e10a92886d, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SampleTexture2D_4CB51718_Texture:
+        m_Texture: {fileID: 2800000, guid: b4ac9d3a09377d74b8936b130d279a1c, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SampleTexture2D_64433286_Texture:
+        m_Texture: {fileID: 2800000, guid: 3465defb867476545afbf059b501f607, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SampleTexture2D_AF3A9C16_Texture:
+        m_Texture: {fileID: 2800000, guid: 1b5c50ed97ab56140a75229f67167350, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _SpecGlossMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
+    - Vector1_D4F3B0CB: 0
+    - Vector1_DA128ABB: 2.27
     - _AlphaClip: 0
     - _Blend: 0
     - _BumpScale: 1
@@ -63,6 +91,12 @@ Material:
     - _WorkflowMode: 1
     - _ZWrite: 1
     m_Colors:
+    - Color_5FC8A991: {r: 0, g: 0.11315157, b: 0.9882353, a: 0}
+    - Color_66A4095E: {r: 0, g: 0.54056394, b: 1.1486983, a: 0}
+    - Color_695D6DD: {r: 0.18721528, g: 0, b: 0.6597539, a: 0}
+    - Color_A65E450C: {r: 0.7489423, g: 0, b: 0.67761445, a: 0}
+    - Color_B6D7EB72: {r: 0.16045442, g: 0, b: 0.8705506, a: 0}
+    - Color_C770B3C8: {r: 0, g: 2.329293, b: 4.237095, a: 0}
     - _Color: {r: 0.5, g: 0.5, b: 0.5, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
