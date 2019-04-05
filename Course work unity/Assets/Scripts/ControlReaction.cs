@@ -13,19 +13,19 @@ public class ControlReaction : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(controls.forward)
+        if(Controls.forward)
         {
             Debug.Log("w");
         }
-        if(controls.back)
+        if(Controls.back)
         {
             Debug.Log("s");
         }
-        if(controls.rotLeft)
+        if(Controls.rotLeft)
         {
             Debug.Log("a");
         }
-        if(controls.rotRight)
+        if(Controls.rotRight)
         {
             Debug.Log("d");
         }

@@ -35,9 +35,9 @@ public class moving : MonoBehaviour
     void Update()
     {
         /******* TIMER  *******/
-        if((controls.forward || controls.back))
+        if((Controls.forward || Controls.back))
         {
-            if(controls.forward)
+            if(Controls.forward)
             {
                 accelTimer += Time.deltaTime;
             }
@@ -75,16 +75,16 @@ public class moving : MonoBehaviour
 
     void FixedUpdate()
     {
-        if(controls.forward && controls.back)
+        if(Controls.forward && Controls.back)
         {
             WheelColls[0].motorTorque = 0;
             WheelColls[1].motorTorque = 0;
         }
-        else if(controls.forward || controls.back)
+        else if(Controls.forward || Controls.back)
         {
             if(Mathf.Abs(accelTimer) > 0.1f)
             {
-                if(controls.forward)
+                if(Controls.forward)
                 {
                     foreach(WheelCollider wheelColl in WheelColls)
                     {
@@ -152,9 +152,9 @@ public class moving : MonoBehaviour
         //Wheels[1].transform.Rotate(WheelColls[1].rpm * Mathf.PI * Time.deltaTime, 0, 0);
         //Debug.Log(torqueMoment + "tm");
 
-        if(controls.rotLeft || controls.rotRight)
+        if(Controls.rotLeft || Controls.rotRight)
         {
-            if(controls.rotLeft)
+            if(Controls.rotLeft)
             {
                 // transform.Rotate(-Time.fixedDeltaTime*Mathf.PI*20, 0, 0);
                 PlayerRB.AddTorque(transform.right * (-10f));
@@ -165,7 +165,7 @@ public class moving : MonoBehaviour
                 // transform.rotation *= new Quaternion(0.5f, 0, 0,1);
             }
             
-            if(controls.rotRight)
+            if(Controls.rotRight)
             {
                 PlayerRB.AddTorque(transform.right * (10f));
                // PlayerRB.MoveRotation(Quaternion.AngleAxis(Time.deltaTime, new Vector3(0,0,1)));
@@ -205,7 +205,7 @@ public class moving : MonoBehaviour
         GetComponent<rotation>().StopAllCoroutines();
         GetComponent<rotation>().enabled = false;
         GetComponent<speedControl>().enabled = false;
-        GetComponent<controls>().enabled = false;
+        GetComponent<Controls>().enabled = false;
         //GetComponent<MeshCollider>().enabled = true;
        // GetComponent<playerTrackRotation>().enabled = false;
 

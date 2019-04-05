@@ -9,7 +9,7 @@ public class startScript : MonoBehaviour
     {
         GetComponent<moving>().enabled = true;
         GetComponent<speedControl>().enabled = true;
-        GetComponent<controls>().enabled = true;
+        GetComponent<Controls>().enabled = true;
         switch(SceneManager.GetActiveScene().name)
         {
             case "mainMenu":
