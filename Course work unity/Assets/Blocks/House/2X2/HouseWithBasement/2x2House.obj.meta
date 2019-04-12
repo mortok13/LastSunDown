@@ -16,7 +16,7 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: polySurface90Mat
-    second: {fileID: 2100000, guid: 43b2873ed5d494f46b05b6a790c507e5, type: 2}
+    second: {fileID: 2100000, guid: c0754f31474157b4aa106848baafba65, type: 2}
   materials:
     importMaterials: 1
     materialName: 0
@@ -56,7 +56,7 @@ ModelImporter:
     importCameras: 1
     importLights: 1
     swapUVChannels: 0
-    generateSecondaryUV: 1
+    generateSecondaryUV: 0
     useFileUnits: 1
     optimizeMeshForGPU: 1
     keepQuads: 0
