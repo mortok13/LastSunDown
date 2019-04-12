@@ -7,14 +7,17 @@ public class cameraMoving : MonoBehaviour
     [SerializeField,Range(0, 1)]
     private float startDelay;
 
+    private float offsetZ;
+
     [SerializeField, Range(0.001f,1)]
     private float lerpIntensity;
     public GameObject player;
-    private Vector3 cameraOffset;
+    //private Vector3 cameraOffset;
     void Awake()
     {
+        offsetZ = -4;
         player = GameObject.FindGameObjectWithTag("Player");
-        cameraOffset = transform.position - player.transform.position; 
+    //    cameraOffset = transform.position - player.transform.position; 
     }
     void Start()
     {
@@ -36,7 +39,7 @@ public class cameraMoving : MonoBehaviour
         while(true)
         {
             SetTransformPosX(Mathf.Lerp(transform.position.x, player.transform.position.x, lerpIntensity));
-            SetTransformPosZ(Mathf.Lerp(transform.position.z, player.transform.position.z - 4, lerpIntensity));
+            SetTransformPosZ(Mathf.Lerp(transform.position.z, player.transform.position.z + offsetZ, lerpIntensity/2));
             yield return null;
         }
     }
@@ -49,6 +52,54 @@ public class cameraMoving : MonoBehaviour
     private void SetTransformPosZ(float newPos)
     {
         transform.position = new Vector3(transform.position.x, transform.position.y, newPos);
+    }
+
+    private void SetTransformPosY(float newPos)
+    {
+        transform.position = new Vector3(transform.position.x, newPos, transform.position.z);
+    }
+
+    private void SetRotationEulerX(float newRotAngle)
+    {
+        Vector3 resultRot = new Vector3(newRotAngle, transform.rotation.eulerAngles.y, transform.rotation.eulerAngles.z);
+        resultRot -= transform.rotation.eulerAngles;
+        transform.Rotate(resultRot);
+
+    }
+
+    public IEnumerator ChangeCameraMode()
+    {
+        float curAngle;
+        if(rotation.movingMode)
+        {
+            curAngle = -15.5f;
+            while(transform.position.y <= 1.749f || curAngle <= 29.99f || offsetZ <= -1.51f)
+            {
+                SetTransformPosY(Mathf.Lerp(transform.position.y, 1.75f, lerpIntensity/2));
+               // Debug.Log(Mathf.Lerp(transform.rotation.eulerAngles.x, 30, lerpIntensity));
+                curAngle = Mathf.Lerp(curAngle, 30, lerpIntensity/2);
+                offsetZ = Mathf.Lerp(offsetZ, -1.5f, lerpIntensity);
+                SetRotationEulerX(curAngle);
+                yield return null;
+            }
+            offsetZ = -1.5f;
+        }
+        else
+        {
+            curAngle = 30;
+            while(transform.position.y >= 0.749f || curAngle >= -15.49f || offsetZ >= -3.99f)
+            {
+                SetTransformPosY(Mathf.Lerp(transform.position.y, 0.75f, lerpIntensity/2));
+                //Debug.Log(Mathf.Lerp(transform.rotation.eulerAngles.x, 30, lerpIntensity));
+                curAngle = Mathf.Lerp(curAngle, -15.5f, lerpIntensity/4);
+                offsetZ = Mathf.Lerp(offsetZ, -4, lerpIntensity);
+                SetRotationEulerX(curAngle);
+                yield return null;
+            }
+            offsetZ = -4;
+        }
+        Debug.Log("Camera moved");
+        StopCoroutine("ChangeCameraMode");
     }
     
 

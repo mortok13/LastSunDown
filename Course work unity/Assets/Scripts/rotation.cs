@@ -4,7 +4,7 @@ using UnityEngine;
 public class rotation : MonoBehaviour
 {
     //private float rotationTime = 1f;
-    public bool movingMode;        /////// 0 - horizontal, 1 - vertical ///////
+    public static bool movingMode;        /////// 0 - horizontal, 1 - vertical ///////
     private Quaternion qAngle = new Quaternion();
     private Vector3 playerCurRot;
     private Vector3 playerRotPos;

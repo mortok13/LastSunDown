@@ -40,7 +40,9 @@ public class playerTrackRotation : MonoBehaviour
             other.GetComponent<rotation>().resetRotJoint();
             other.GetComponent<rotation>().inRotation = false;
           //  other.GetComponent<rotation>().stab = false;
-            other.GetComponent<rotation>().movingMode =  !other.GetComponent<rotation>().movingMode;
+            rotation.movingMode = !rotation.movingMode;
+            GameObject.FindGameObjectWithTag("MainCamera").GetComponent<cameraMoving>().StopCoroutine("ChangeCameraMode");
+            GameObject.FindGameObjectWithTag("MainCamera").GetComponent<cameraMoving>().StartCoroutine("ChangeCameraMode");
             switch(this.tag)
             {
                 case "rotRight":
