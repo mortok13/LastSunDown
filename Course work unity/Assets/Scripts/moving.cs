@@ -247,7 +247,7 @@ public class moving : MonoBehaviour
        // Debug.Log("triggered");
         if(other.tag == "ground")
         {
-            Debug.Log("triggered");
+            Debug.Log("triggered gameOver");
             gameOver();
            // this.enabled = false;
         }
