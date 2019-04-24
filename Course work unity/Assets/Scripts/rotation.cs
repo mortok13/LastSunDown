@@ -27,7 +27,6 @@ public class rotation : MonoBehaviour
         playerCurRot = new Vector3(0,90,0);
         playerCurRot.z = 0;
         qAngle.z = 0;
-
         rotStabilizeTime = 0;
         playerRotPos = transform.position;
         inRotation = false;
@@ -41,7 +40,7 @@ public class rotation : MonoBehaviour
         //StartCoroutine("rotTimer");
         StopAllCoroutines();
         moving.PlayerRB.constraints = RigidbodyConstraints.FreezeRotationZ |
-                               RigidbodyConstraints.FreezeRotationY;
+                                      RigidbodyConstraints.FreezeRotationY;
     }
 
     void Update()

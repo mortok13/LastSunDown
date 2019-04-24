@@ -21,7 +21,7 @@ public class cameraMoving : MonoBehaviour
     }
     void Start()
     {
-       transform.position = new Vector3(player.transform.position.x + 1.5f, 0.75f, -4f);
+       transform.position = new Vector3(player.transform.position.x + 1.5f, 0.93f, -4f);
        transform.Rotate(new Vector3(-15.5f, 0, 0)); 
        StartCoroutine("CameraMainControl");
     }
@@ -73,9 +73,9 @@ public class cameraMoving : MonoBehaviour
         if(rotation.movingMode)
         {
             curAngle = -15.5f;
-            while(transform.position.y <= 1.749f || curAngle <= 29.99f || offsetZ <= -1.51f)
+            while(transform.position.y <= 1.929f || curAngle <= 29.99f || offsetZ <= -1.51f)
             {
-                SetTransformPosY(Mathf.Lerp(transform.position.y, 1.75f, lerpIntensity/2));
+                SetTransformPosY(Mathf.Lerp(transform.position.y, 1.93f, lerpIntensity/2));
                // Debug.Log(Mathf.Lerp(transform.rotation.eulerAngles.x, 30, lerpIntensity));
                 curAngle = Mathf.Lerp(curAngle, 30, lerpIntensity/2);
                 offsetZ = Mathf.Lerp(offsetZ, -1.5f, lerpIntensity);
@@ -87,9 +87,9 @@ public class cameraMoving : MonoBehaviour
         else
         {
             curAngle = 30;
-            while(transform.position.y >= 0.749f || curAngle >= -15.49f || offsetZ >= -3.99f)
+            while(transform.position.y >= 0.929f || curAngle >= -15.49f || offsetZ >= -3.99f)
             {
-                SetTransformPosY(Mathf.Lerp(transform.position.y, 0.75f, lerpIntensity/2));
+                SetTransformPosY(Mathf.Lerp(transform.position.y, 0.93f, lerpIntensity/2));
                 //Debug.Log(Mathf.Lerp(transform.rotation.eulerAngles.x, 30, lerpIntensity));
                 curAngle = Mathf.Lerp(curAngle, -15.5f, lerpIntensity/4);
                 offsetZ = Mathf.Lerp(offsetZ, -4, lerpIntensity);

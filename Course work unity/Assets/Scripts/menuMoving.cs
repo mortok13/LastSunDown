@@ -55,11 +55,11 @@ public class menuMoving : MonoBehaviour
        // WheelColls[1].motorTorque = speed;
         foreach(GameObject wheel in frontWheels)
         {
-        wheel.transform.Rotate(WheelColls[0].rpm*Mathf.PI * Time.deltaTime,0,0);
+            wheel.transform.Rotate(WheelColls[0].rpm*Mathf.PI * Time.deltaTime,0,0);
         }
         foreach(GameObject wheel in backWheels)
         {
-        wheel.transform.Rotate(WheelColls[0].rpm*Mathf.PI * Time.deltaTime,0,0);
+            wheel.transform.Rotate(WheelColls[0].rpm*Mathf.PI * Time.deltaTime,0,0);
         }
     }
 }
