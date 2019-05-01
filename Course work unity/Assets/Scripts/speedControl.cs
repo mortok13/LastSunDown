@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class speedControl : MonoBehaviour
+public class SpeedControl : MonoBehaviour
 {
     public static float acceleration;
     public static float distance;
@@ -17,10 +17,10 @@ public class speedControl : MonoBehaviour
     }
     void FixedUpdate()
     {
-            speed = Mathf.Sin(moving.accelTimer/2) * maxSpeed;
+            speed = Mathf.Sin(Moving.accelTimer/2) * maxSpeed;
            // distance += Mathf.Sign(speed) * GameObject.FindGameObjectWithTag("Player").GetComponent<Rigidbody>().velocity.magnitude * Time.fixedDeltaTime;
             brake = maxSpeed - speed;            
-            acceleration = Mathf.Cos(moving.accelTimer/2)/2;
+            acceleration = Mathf.Cos(Moving.accelTimer/2)/2;
             angleSpeed = speed / 0.201f;     
     }
 }

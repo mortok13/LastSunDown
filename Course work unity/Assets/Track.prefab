@@ -1,0 +1,59 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &6810486548285915548
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6810486548285915549}
+  - component: {fileID: 6810486548285915550}
+  m_Layer: 0
+  m_Name: Track
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6810486548285915549
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6810486548285915548}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -8.730096, y: 2.404449, z: -3.4681115}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6810486548285915550
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6810486548285915548}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3fe988cb4e3a2ef4c8999bee864d4476, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  backgroundBlocks:
+  - {fileID: 11400000, guid: 9a25448c81a1e0b4bb84cee640549aa6, type: 2}
+  - {fileID: 11400000, guid: edfa945e2511eab43a009fef63168df5, type: 2}
+  - {fileID: 11400000, guid: 284fb46d5afaef5419caabb56b2a31df, type: 2}
+  - {fileID: 11400000, guid: 1a43f59a4ec5f9445aea7d94355f467f, type: 2}
+  - {fileID: 11400000, guid: 7b8742237c730444296204857cb76e21, type: 2}
+  - {fileID: 11400000, guid: 5fb3d9cee345f2743982f6f864889ebb, type: 2}
+  roadBlocks:
+  - {fileID: 11400000, guid: bf6a16466192ece409560acafc639600, type: 2}
+  - {fileID: 11400000, guid: 282b27994d7c7214db6db53d8acb795f, type: 2}
+  - {fileID: 11400000, guid: eb10cb0c07cee09469f6356837d9beaa, type: 2}
+  - {fileID: 11400000, guid: ace5125632195de44b75735f87706271, type: 2}
+  crossroadBlocks:
+  - {fileID: 11400000, guid: 32d24fdca9014f542b7511548040799e, type: 2}

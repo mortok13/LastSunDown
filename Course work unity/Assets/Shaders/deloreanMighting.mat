@@ -123,7 +123,7 @@ Material:
     - Color_64818AA2: {r: 0.41388416, g: 0, b: 1, a: 0}
     - Color_D34928F1: {r: 1, g: 0, b: 0.989954, a: 0}
     - _Color: {r: 0.5, g: 0.5, b: 0.5, a: 1}
-    - _EmissionColor: {r: 0.28795812, g: 0, b: 1, a: 1}
+    - _EmissionColor: {r: 0.12460822, g: 0, b: 0.43527526, a: 1}
     - _SpecColor: {r: 0.2, g: 0.2, b: 0.2, a: 1}
     - _UvOffset: {r: 0, g: 0, b: 0, a: 0}
     - _UvTiling: {r: 1, g: 1, b: 0, a: 0}

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class cameraMoving : MonoBehaviour
+public class CameraMoving : MonoBehaviour
 {
     [SerializeField,Range(0, 1)]
     private float startDelay;
@@ -70,7 +70,7 @@ public class cameraMoving : MonoBehaviour
     public IEnumerator ChangeCameraMode()
     {
         float curAngle;
-        if(rotation.movingMode)
+        if(Rotation.movingMode)
         {
             curAngle = -15.5f;
             while(transform.position.y <= 1.929f || curAngle <= 29.99f || offsetZ <= -1.51f)

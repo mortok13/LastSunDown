@@ -8,7 +8,7 @@ public class endgame : MonoBehaviour
     {
         if(other.tag == "ground")
         {
-        GetComponent<moving>().gameOver();
+        GetComponent<Moving>().gameOver();
         this.enabled = false;
         }
     }

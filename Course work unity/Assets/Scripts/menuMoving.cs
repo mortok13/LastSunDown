@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class menuMoving : MonoBehaviour
+public class MenuMoving : MonoBehaviour
 {
     private byte i;
     public GameObject mRoadBlock;

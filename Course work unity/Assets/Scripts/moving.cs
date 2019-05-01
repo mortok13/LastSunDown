@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class moving : MonoBehaviour
+public class Moving : MonoBehaviour
 {
  
     public static Rigidbody PlayerRB;
@@ -88,18 +88,18 @@ public class moving : MonoBehaviour
                 {
                     foreach(WheelCollider wheelColl in WheelColls)
                     {
-                    wheelColl.motorTorque = speedControl.speed;
+                    wheelColl.motorTorque = SpeedControl.speed;
                     wheelColl.brakeTorque = 0f;
                     }
                 }
                 else
                 {
-                    if(speedControl.speed <= 0)
+                    if(SpeedControl.speed <= 0)
                     {
                         foreach(WheelCollider wheelColl in WheelColls)
                         {
                         wheelColl.brakeTorque = 0f;
-                        wheelColl.motorTorque = speedControl.speed;
+                        wheelColl.motorTorque = SpeedControl.speed;
                         }
                     }
                     else
@@ -174,7 +174,7 @@ public class moving : MonoBehaviour
                 // PlayerRB.MoveRotation(Quaternion.Lerp(transform.rotation, Quaternion.Euler(transform.rotation.x + 1f, GetComponent<rotation>().getCurRot().y, 0), Time.fixedDeltaTime * 5));
                 // transform.rotation *= new Quaternion(-0.5f, 0, 0,1);
             }   
-            GetComponent<rotation>().deltaCurRotX(PlayerRB.rotation.eulerAngles.x);
+            GetComponent<Rotation>().deltaCurRotX(PlayerRB.rotation.eulerAngles.x);
             /*
             if(transform.rotation.eulerAngles.x >= GetComponent<rotation>().getCurRot().x + 45f)
             {
@@ -202,9 +202,9 @@ public class moving : MonoBehaviour
     public void gameOver()
     {
         this.enabled = false;
-        GetComponent<rotation>().StopAllCoroutines();
-        GetComponent<rotation>().enabled = false;
-        GetComponent<speedControl>().enabled = false;
+        GetComponent<Rotation>().StopAllCoroutines();
+        GetComponent<Rotation>().enabled = false;
+        GetComponent<SpeedControl>().enabled = false;
         GetComponent<Controls>().enabled = false;
         //GetComponent<MeshCollider>().enabled = true;
        // GetComponent<playerTrackRotation>().enabled = false;

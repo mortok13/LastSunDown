@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class playerTrackRotation : MonoBehaviour
+public class PlayerTrackRotation : MonoBehaviour
 {
     void Awake()
     {
@@ -14,15 +14,15 @@ public class playerTrackRotation : MonoBehaviour
         {
             // other.GetComponent<rotation>().movingMode =  !other.GetComponent<rotation>().movingMode;
           //  other.GetComponent<speedControl>().maxSpeed = 40f;
-            other.GetComponent<rotation>().inRotation = true;
-            other.GetComponent<rotation>().StopAllCoroutines();
+            other.GetComponent<Rotation>().inRotation = true;
+            other.GetComponent<Rotation>().StopAllCoroutines();
             switch(this.tag)
             {
                 case "rotRight":
-                other.GetComponent<rotation>().setRotJoint(1);
+                other.GetComponent<Rotation>().setRotJoint(1);
                 break;
                 case "rotLeft":
-                other.GetComponent<rotation>().setRotJoint(2);
+                other.GetComponent<Rotation>().setRotJoint(2);
                 break;
             }
         }
@@ -37,19 +37,19 @@ public class playerTrackRotation : MonoBehaviour
         if(other.tag == "Player")
         {
            // other.GetComponent<speedControl>().maxSpeed = 100f;
-            other.GetComponent<rotation>().resetRotJoint();
-            other.GetComponent<rotation>().inRotation = false;
+            other.GetComponent<Rotation>().resetRotJoint();
+            other.GetComponent<Rotation>().inRotation = false;
           //  other.GetComponent<rotation>().stab = false;
-            rotation.movingMode = !rotation.movingMode;
-            GameObject.FindGameObjectWithTag("MainCamera").GetComponent<cameraMoving>().StopCoroutine("ChangeCameraMode");
-            GameObject.FindGameObjectWithTag("MainCamera").GetComponent<cameraMoving>().StartCoroutine("ChangeCameraMode");
+            Rotation.movingMode = !Rotation.movingMode;
+            GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CameraMoving>().StopCoroutine("ChangeCameraMode");
+            GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CameraMoving>().StartCoroutine("ChangeCameraMode");
             switch(this.tag)
             {
                 case "rotRight":
-                other.GetComponent<rotation>().rotStabilize(90f);
+                other.GetComponent<Rotation>().rotStabilize(90f);
                 break;
                 case "rotLeft":
-                other.GetComponent<rotation>().rotStabilize(-90f);
+                other.GetComponent<Rotation>().rotStabilize(-90f);
                 break;
             }
             GetComponent<BoxCollider>().enabled = false;

@@ -5,17 +5,14 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "New Block", menuName = "Block", order = 51)]
 public class Block : ScriptableObject
 {
+    //                 x = x, y = x;
     public Vector2 sizeXZ;
     public GameObject block;
-    public void RotateForY(float angle)
-    {
-        block.transform.Rotate(0, angle, 0);
-    }
     Block()
     {
     }
-    public void Delete()
-    {
-        Destroy(this);
-    }
+    // public void Delete()
+    // {
+    //     Destroy(this);
+    // }
 }

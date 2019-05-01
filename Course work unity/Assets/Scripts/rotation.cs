@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-public class rotation : MonoBehaviour
+public class Rotation : MonoBehaviour
 {
     //private float rotationTime = 1f;
     public static bool movingMode;        /////// 0 - horizontal, 1 - vertical ///////
@@ -39,7 +39,7 @@ public class rotation : MonoBehaviour
         playerRotPos.z = Mathf.Round(playerRotPos.z);
         //StartCoroutine("rotTimer");
         StopAllCoroutines();
-        moving.PlayerRB.constraints = RigidbodyConstraints.FreezeRotationZ |
+        Moving.PlayerRB.constraints = RigidbodyConstraints.FreezeRotationZ |
                                       RigidbodyConstraints.FreezeRotationY;
     }
 
@@ -81,25 +81,25 @@ public class rotation : MonoBehaviour
            // playerRB.MoveRotation(Quaternion.Lerp(transform.rotation, Quaternion.Euler(playerCurRot) ,  rotStabilizeTime));
             if(!stabilized)
             {
-                moving.PlayerRB.MoveRotation(Quaternion.Normalize(qAngle));
+                Moving.PlayerRB.MoveRotation(Quaternion.Normalize(qAngle));
             }
             else
             {
 
             }
            // playerRB.MoveRotation(new Quaternion(transform.rotation.x, ));
-            moving.PlayerRB.MovePosition(Vector3.Lerp(transform.position, playerRotPos, rotStabilizeTime+0.01f));
+            Moving.PlayerRB.MovePosition(Vector3.Lerp(transform.position, playerRotPos, rotStabilizeTime+0.01f));
         }
     }
     public void rotStabilize(float angle) 
     {
         playerCurRot.y += angle;
-        moving.PlayerRB.constraints = RigidbodyConstraints.None;
+        Moving.PlayerRB.constraints = RigidbodyConstraints.None;
         StartCoroutine("rotTimer");
     }
     public void setRotJoint(byte rotMode)
     {
-        moving.PlayerRB.constraints = RigidbodyConstraints.FreezeRotationZ
+        Moving.PlayerRB.constraints = RigidbodyConstraints.FreezeRotationZ
                                     | RigidbodyConstraints.FreezeRotationX;
         //playerRB.constraints = RigidbodyConstraints.None;
         gameObject.AddComponent(typeof(ConfigurableJoint));
@@ -143,12 +143,12 @@ public class rotation : MonoBehaviour
     {
         StartCoroutine("getX");
        // qAngle = Quaternion.Euler(playerCurRot);
-        velocity = moving.PlayerRB.velocity;
+        velocity = Moving.PlayerRB.velocity;
         stabilized = false;
-        moving.PlayerRB.Sleep();
+        Moving.PlayerRB.Sleep();
         yield return null;
-        moving.PlayerRB.WakeUp();
-        moving.PlayerRB.velocity = velocity;
+        Moving.PlayerRB.WakeUp();
+        Moving.PlayerRB.velocity = velocity;
       //  if(playerRB.velocity.y != 0)
       //  {
       //      rotStabilizeTime = 0.5f;
@@ -162,9 +162,9 @@ public class rotation : MonoBehaviour
        // yield return new WaitUntil(() => Mathf.Abs(playerRB.velocity.y) <= 0.5f);
      //   if(!movingMode)
       //  {
-        moving.PlayerRB.constraints = RigidbodyConstraints.FreezeRotationX;
+        Moving.PlayerRB.constraints = RigidbodyConstraints.FreezeRotationX;
         yield return new WaitForSeconds(2f);
-        moving.PlayerRB.constraints = RigidbodyConstraints.FreezeRotationY;
+        Moving.PlayerRB.constraints = RigidbodyConstraints.FreezeRotationY;
                                    // | RigidbodyConstraints.FreezeRotationZ;
                                   // RigidbodyConstraints.FreezePositionZ;
        // }
@@ -178,7 +178,7 @@ public class rotation : MonoBehaviour
         StopCoroutine("getX");
         rotStabilizeTime = 0;
         yield return new WaitUntil(() => transform.rotation.eulerAngles.z <= 0.0001f && transform.rotation.eulerAngles.z >= -0.0001f);
-        moving.PlayerRB.constraints = RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ;
+        Moving.PlayerRB.constraints = RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ;
         StopCoroutine("rotTimer");
         //moving.PlayerRB.constraints |= RigidbodyConstraints.FreezePositionZ;
     }
