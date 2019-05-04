@@ -1,4 +1,4 @@
-enum RotMode
+enum RotModes
 {
     right,
     up,
