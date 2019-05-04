@@ -59,7 +59,7 @@ public class trackController : MonoBehaviour
                     indexY = 1;
                     leftBGCurPoint.x = resContTrnsfrm.x - 1;
                                                         //
-                    leftBGCurPoint.y+= resContTrnsfrm.z + 0.5f + (lastPlacedLeftBGBlock == null ? 0 : lastPlacedLeftBGBlock.sizeXZ.y);
+                    leftBGCurPoint.y += resContTrnsfrm.z + 0.5f + lastPlacedLeftBGBlock.sizeXZ.y;
                     rightBGCurPoint.x = resContTrnsfrm.x + 1;
                     rightBGCurPoint.y = resContTrnsfrm.z - 0.5f;
                 }
@@ -96,11 +96,11 @@ public class trackController : MonoBehaviour
                 else            // right
                 {
                     indexY = 0;
-                    while(leftBGCurPoint.y < resContTrnsfrm.y)
+                    while(leftBGCurPoint.y < resContTrnsfrm.y + 2)
                     {
                         int temp = Random.Range(0, backgroundBlocks.Length);  
-                        Instantiate(backgroundBlocks[temp].block, new Vector3 (leftBGCurPoint.x, 0, leftBGCurPoint.y + backgroundBlocks[temp].sizeXZ.y/2), Quaternion.Euler(0, backgroundAngle, 0), track[curIndex].transform);
-                        leftBGCurPoint.x += backgroundBlocks[temp].sizeXZ.y;
+                        Instantiate(backgroundBlocks[temp].block, new Vector3 (leftBGCurPoint.x, 0, leftBGCurPoint.y + backgroundBlocks[temp].sizeXZ.x/2), Quaternion.Euler(0, backgroundAngle, 0), track[curIndex].transform);
+                        leftBGCurPoint.x += backgroundBlocks[temp].sizeXZ.x;
                         lastPlacedLeftBGBlock = backgroundBlocks[temp];
                     }
                     leftBGCurPoint.x = resContTrnsfrm.x - 0.5f;
@@ -113,8 +113,16 @@ public class trackController : MonoBehaviour
                     indexY = 3;
                     leftBGCurPoint.x = resContTrnsfrm.x + 1;
                     leftBGCurPoint.y = resContTrnsfrm.z - 0.5f;
+                    while(rightBGCurPoint.x > roadCurPoint.x)
+                    {
+                        int temp = Random.Range(0, backgroundBlocks.Length);  
+                        Instantiate(backgroundBlocks[temp].block, new Vector3 (rightBGCurPoint.x - backgroundBlocks[temp].sizeXZ.x/2 , 0, rightBGCurPoint.y), Quaternion.Euler(0, 180 + backgroundAngle, 0), track[curIndex].transform);
+                        rightBGCurPoint.x -= backgroundBlocks[temp].sizeXZ.x;
+                        lastPlacedRightBGblock = backgroundBlocks[temp];
+                    }
                     rightBGCurPoint.x = resContTrnsfrm.x - 1;
                     rightBGCurPoint.y = resContTrnsfrm.z + 0.5f;
+                    
                 }
                 else            // up
                 {
@@ -129,7 +137,7 @@ public class trackController : MonoBehaviour
                 if(!side)       // right
                 {
                     indexY = 0;
-                    leftBGCurPoint.x = resContTrnsfrm.x + 0.5f;
+                    leftBGCurPoint.x = resContTrnsfrm.x + 0.5f + lastPlacedRightBGblock.sizeXZ.y;
                     leftBGCurPoint.y = resContTrnsfrm.z + 1;
                     while(rightBGCurPoint.y > roadCurPoint.y)
                     {
@@ -227,13 +235,9 @@ public class trackController : MonoBehaviour
         Instantiate(backgroundBlocks[5].block, new Vector3 (leftBGCurPoint.x + backgroundBlocks[5].sizeXZ.x/2 - 0.5f, 0, leftBGCurPoint.y), Quaternion.identity, track[0].transform);
         leftBGCurPoint.x += backgroundBlocks[5].sizeXZ.x/2 + 1;
         Debug.Log (leftBGCurPoint);
- Create();Create();Create();Create();Create();Create();Create();Create();Create();
- Create();Create();Create();Create();Create();Create();Create();Create();Create();
-  Create();Create();Create();Create();Create();Create();Create();Create();Create();
- Create();Create();Create();Create();Create();Create();Create();Create();Create();
-  Create();Create();Create();Create();Create();Create();Create();Create();Create();
- Create();Create();Create();Create();Create();Create();Create();Create();Create();
- 
+ Create();Create();Create();Create();Create();Create();Create(); Create();Create();Create();Create();Create();Create();Create();Create();Create();
+ Create();Create();Create();Create();Create();Create();Create();
+
        // Destroy(track[1]);
     }
 
@@ -255,6 +259,47 @@ public class trackController : MonoBehaviour
             roadCurPoint+= deltaRoadPoint[curRotMode];
 
 
+
+
+                        float leftOrRight;
+
+            switch(curRotMode)
+            {
+                case 0:
+                    for(int i = (int)roadCurPoint.x; i < leftBGCurPoint.x; i++)
+                    {
+                        temp = Random.Range(0, roadBlocks.Length);
+                        Instantiate(roadBlocks[temp].block, new Vector3(roadCurPoint.x, 0, roadCurPoint.y), Quaternion.Euler(0, roadAngle - 180 * Random.Range(0, 2), 0), track[curIndex].transform);
+                        roadCurPoint += deltaRoadPoint[curRotMode];
+                    }
+                    break;
+                case 1:
+                    leftOrRight = leftBGCurPoint.y < rightBGCurPoint.y ? rightBGCurPoint.y : leftBGCurPoint.y;
+                    for(int i = (int)roadCurPoint.y; i < leftOrRight - 1; i++ )
+                    {
+                        temp = Random.Range(0, roadBlocks.Length);
+                        Instantiate(roadBlocks[temp].block, new Vector3(roadCurPoint.x, 0, roadCurPoint.y), Quaternion.Euler(0, roadAngle - 180 * Random.Range(0, 2), 0), track[curIndex].transform);
+                        roadCurPoint += deltaRoadPoint[curRotMode];
+                    }
+                    break;
+                case 2:
+                    for(int i = (int)roadCurPoint.x; i > rightBGCurPoint.x; i--)
+                    {
+                        temp = Random.Range(0, roadBlocks.Length);
+                        Instantiate(roadBlocks[temp].block, new Vector3(roadCurPoint.x, 0, roadCurPoint.y), Quaternion.Euler(0, roadAngle - 180 * Random.Range(0, 2), 0), track[curIndex].transform);
+                        roadCurPoint += deltaRoadPoint[curRotMode];
+                    }
+                    break;
+                case 3:
+                    leftOrRight = leftBGCurPoint.y > rightBGCurPoint.y ? rightBGCurPoint.y : leftBGCurPoint.y;
+                    for(int i = (int)roadCurPoint.y; i > leftOrRight; i--)
+                    {
+                        temp = Random.Range(0, roadBlocks.Length);
+                        Instantiate(roadBlocks[temp].block, new Vector3(roadCurPoint.x, 0, roadCurPoint.y), Quaternion.Euler(0, roadAngle - 180 * Random.Range(0, 2), 0), track[curIndex].transform);
+                        roadCurPoint += deltaRoadPoint[curRotMode];
+                    }
+                    break;
+            }
             temp = Random.Range(0, backgroundBlocks.Length);
             switch(curRotMode)
             {
@@ -265,11 +310,14 @@ public class trackController : MonoBehaviour
                     break;
                 case 1:
                     while(leftBGCurPoint.y < roadCurPoint.y || rightBGCurPoint.y < roadCurPoint.y)
-                    {
-                            Instantiate(backgroundBlocks[temp].block, new Vector3 (leftBGCurPoint.x, 0, leftBGCurPoint.y + backgroundBlocks[temp].sizeXZ.x/2), Quaternion.Euler(0, backgroundAngle, 0), track[curIndex].transform);
+                    {   
+                        if(leftBGCurPoint.y < roadCurPoint.y)
+                        {
+                            Instantiate(backgroundBlocks[temp].block, new Vector3 (leftBGCurPoint.x, 0, leftBGCurPoint.y + backgroundBlocks[temp].sizeXZ.x/2 - 1), Quaternion.Euler(0, backgroundAngle, 0), track[curIndex].transform);
                             leftBGCurPoint.y += backgroundBlocks[temp].sizeXZ.x;
                             lastPlacedLeftBGBlock = backgroundBlocks[temp];
                             temp = Random.Range(0, backgroundBlocks.Length);
+                        }
                         if(rightBGCurPoint.y < roadCurPoint.y)
                         {
                             Instantiate(backgroundBlocks[temp].block, new Vector3 (rightBGCurPoint.x, 0, rightBGCurPoint.y + backgroundBlocks[temp].sizeXZ.x/2), Quaternion.Euler(0, backgroundAngle + 180, 0), track[curIndex].transform);
@@ -310,9 +358,7 @@ public class trackController : MonoBehaviour
                     }
                     break;
             }
-            Debug.Log("leftBGCurPoint: " + leftBGCurPoint + "\nrightBGCurPoint: " + rightBGCurPoint);
-
-            float leftOrRight;
+                   //     float leftOrRight;
 
             switch(curRotMode)
             {
@@ -351,6 +397,8 @@ public class trackController : MonoBehaviour
                     }
                     break;
             }
+            Debug.Log("leftBGCurPoint: " + leftBGCurPoint + "\nrightBGCurPoint: " + rightBGCurPoint);
+
 
             Debug.Log("roadCurPoint: " + roadCurPoint);
         }
