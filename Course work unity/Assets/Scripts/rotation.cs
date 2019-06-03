@@ -5,7 +5,7 @@ public class Rotation : MonoBehaviour
 {
     //private float rotationTime = 1f;
     public static bool movingMode;        /////// 0 - horizontal, 1 - vertical ///////
-    private Quaternion qAngle = new Quaternion();
+    private Quaternion qAngle;
     private Vector3 playerCurRot;
     private Vector3 playerRotPos;
     private bool stabilized;
@@ -21,6 +21,7 @@ public class Rotation : MonoBehaviour
 
     void Start()
     {
+        qAngle  = new Quaternion();
         //playerCurRotEulerY = 0;
        // moving.PlayerRB = GetComponent<Rigidbody>();
        // Stabilized = true;

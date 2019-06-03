@@ -11,7 +11,7 @@ public class CameraMoving : MonoBehaviour
 
     [SerializeField, Range(0.001f,1)]
     private float lerpIntensity;
-    public GameObject player;
+    private GameObject player;
     //private Vector3 cameraOffset;
     void Awake()
     {

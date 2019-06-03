@@ -21,6 +21,6 @@ EditorBuildSettings:
     path: Assets/Scenes/alpha.unity
     guid: 6089af2ccbd14fc469c9ae2ca19ceaf7
   - enabled: 1
-    path: Assets/Scenes/City.unity
+    path: Assets/Blocks/track/1x1/Road/Single cross/City.unity
     guid: 6c67dbdeb94576a4994208c0c4cb6e6a
   m_configObjects: {}
