@@ -4,17 +4,17 @@ using UnityEngine;
 
 public class SpeedControl : MonoBehaviour
 {
-    public static float distance;
     public static float speed;
     public float maxSpeed;
-    void Start()
+    private static Rigidbody PlayerRB;
+    void Awake()
     {
-            distance = 0f;
-            maxSpeed = 100f;
+        maxSpeed = 100f;
+        PlayerRB = GameObject.FindGameObjectWithTag("Player").GetComponent<Rigidbody>();
     }
     void FixedUpdate()
     {
-            speed = Mathf.Sin(Moving.accelTimer/2) * maxSpeed;
-            distance += Mathf.Sign(speed) * GameObject.FindGameObjectWithTag("Player").GetComponent<Rigidbody>().velocity.magnitude * Time.fixedDeltaTime;               
+        speed = Mathf.Sin(Moving.accelTimer/2) * maxSpeed;
+        RunStats.Distance += Mathf.Sign(speed) * PlayerRB.velocity.magnitude * Time.fixedDeltaTime;               
     }
 }

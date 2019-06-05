@@ -40,7 +40,7 @@ public class CameraMoving : MonoBehaviour
         {
             SetTransformPosX(Mathf.Lerp(transform.position.x, player.transform.position.x, lerpIntensity));
             SetTransformPosZ(Mathf.Lerp(transform.position.z, player.transform.position.z + offsetZ, lerpIntensity/2));
-            yield return null;
+            yield return new WaitUntil(() => Time.timeScale == 1);
         }
     }
 
@@ -80,7 +80,7 @@ public class CameraMoving : MonoBehaviour
                 curAngle = Mathf.Lerp(curAngle, 30, lerpIntensity/2);
                 offsetZ = Mathf.Lerp(offsetZ, -1.5f, lerpIntensity);
                 SetRotationEulerX(curAngle);
-                yield return null;
+                yield return new WaitUntil(() => Time.timeScale == 1);
             }
             offsetZ = -1.5f;
         }
@@ -94,7 +94,7 @@ public class CameraMoving : MonoBehaviour
                 curAngle = Mathf.Lerp(curAngle, -15.5f, lerpIntensity/4);
                 offsetZ = Mathf.Lerp(offsetZ, -4, lerpIntensity);
                 SetRotationEulerX(curAngle);
-                yield return null;
+                yield return new WaitUntil(() => Time.timeScale == 1);
             }
             offsetZ = -4;
         }

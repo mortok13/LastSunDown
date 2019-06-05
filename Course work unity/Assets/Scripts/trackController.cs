@@ -4,11 +4,15 @@ using UnityEngine;
 public class trackController : MonoBehaviour
 {
     [SerializeField]
+    private Block[] TRotBlocks;
+    [SerializeField]
     private Block[] backgroundBlocks;
     [SerializeField]
     private Block[] roadBlocks;
     [SerializeField]
     private Block[] crossroadBlocks;
+    [SerializeField]
+    private GameObject[] coins;
     [SerializeField]
     private Block[] singleRotateBlocks;
     public static float NotRotChance;
@@ -181,7 +185,8 @@ public class trackController : MonoBehaviour
             //horiz road
             if(_curRotMode % 2 == 0)
             {
-                roadAngle = 180;
+                //roadAngle = 180;
+                roadAngle = 0;
             }
             //vert road
             else
@@ -207,13 +212,19 @@ public class trackController : MonoBehaviour
         roadCurPoint.y = 0;
         deleteIndex = 0;
         curIndex = 1;
-        rSeed = Mathf.FloorToInt(System.DateTime.Now.Millisecond * System.DateTime.Now.Second * System.DateTime.Now.Minute * System.DateTime.Now.Hour);
+        rSeed = Mathf.FloorToInt(System.DateTime.Now.Millisecond * 
+                                 System.DateTime.Now.Second * 
+                                 System.DateTime.Now.Minute * 
+                                 System.DateTime.Now.Hour * 
+                                 System.DateTime.Now.Day * 
+                                 System.DateTime.Now.Month * 
+                                 System.DateTime.Now.Year);
         // ~86 313 600 variations
         
         Random.InitState(rSeed);
         string seedStr = rSeed.ToString("X");
         Debug.Log($"seed is {seedStr}");
-        
+        RunStats.Seed = seedStr;
 
 
     }
@@ -226,7 +237,7 @@ public class trackController : MonoBehaviour
         Debug.Log (leftBGCurPoint);
  Create();Create();Create();Create();Create();Create();Create(); Create();Create();Create();Create();Create();Create();Create();Create();Create();
  Create();Create();Create();Create();Create();Create();Create();
-        RunStats.Distance = 5;
+        //RunStats.Distance = 5;
 
        // Destroy(track[1]);
     }
@@ -237,14 +248,14 @@ public class trackController : MonoBehaviour
         Debug.Log($"curIndex is {curIndex}");
         int temp;
         //Create road + background
-        if(Random.value < NotRotChance)     
+        if(Random.value < NotRotChance - 0.1f)     
         {
             if(NotRotChance > 0.8f)
             {
                 NotRotChance--;
             }
             temp = Random.Range(0, roadBlocks.Length);
-            track[curIndex] = Instantiate(roadBlocks[temp].block, new Vector3(roadCurPoint.x, 0, roadCurPoint.y), Quaternion.Euler(0, roadAngle - 180 * Random.Range(0, 2), 0), transform);
+            track[curIndex] = Instantiate(roadBlocks[temp].block, new Vector3(roadCurPoint.x, 0, roadCurPoint.y), Quaternion.Euler(0, roadAngle /*- 180 * Random.Range(0, 2)*/, 0), transform);
             roadCurPoint+= deltaRoadPoint[curRotMode];
             CreateRoad();
             CreateBackground();
@@ -280,6 +291,7 @@ public class trackController : MonoBehaviour
                     }
                     track[curIndex].tag = "rotRight";
                     track[curIndex].transform.Rotate(0,180,0);
+
                     CreateSingleRot(track[curIndex], curRotMode, true);  
                     curRotMode--;
                 }
@@ -411,7 +423,11 @@ public class trackController : MonoBehaviour
     private void CreateRoadBlock()
     {
         int temp = Random.Range(0, roadBlocks.Length);
-        Instantiate(roadBlocks[temp].block, new Vector3(roadCurPoint.x, 0, roadCurPoint.y), Quaternion.Euler(0, roadAngle - 180 * Random.Range(0, 2), 0), track[curIndex].transform);
+        Instantiate(roadBlocks[temp].block, new Vector3(roadCurPoint.x, 0, roadCurPoint.y), Quaternion.Euler(0, roadAngle /*- 180 * Random.Range(0, 2)*/, 0), track[curIndex].transform);
+        if(Random.value < (2f/5))
+        {
+            Instantiate(coins[Random.Range(0, coins.Length)], new Vector3(roadCurPoint.x, 0, roadCurPoint.y), Quaternion.Euler(0,roadAngle, 0), track[curIndex].transform);
+        }
         roadCurPoint += deltaRoadPoint[curRotMode];
     }
 }
