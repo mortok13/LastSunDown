@@ -1037,7 +1037,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startDelay: 0
   lerpIntensity: 0.1
-  player: {fileID: 1936147906}
 --- !u!82 &964260183
 AudioSource:
   m_ObjectHideFlags: 0
@@ -1048,11 +1047,11 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: abf85b449ac1f2c4fb960f09d92f8c90, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 3bf7d1d20fd86d74799fcf801f746603, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -1180,7 +1179,7 @@ MonoBehaviour:
   volumeTrigger: {fileID: 964260181}
   volumeLayer:
     serializedVersion: 2
-    m_Bits: 256
+    m_Bits: 4294967295
   stopNaNPropagation: 1
   finalBlitToCameraTarget: 1
   antialiasingMode: 0

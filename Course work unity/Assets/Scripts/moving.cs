@@ -238,7 +238,8 @@ public class Moving : MonoBehaviour
 
         PlayerRB.mass = 2;
         PlayerRB.constraints = RigidbodyConstraints.None;
-       GetComponent<MeshCollider>().enabled = true;
+        GetComponent<MeshCollider>().enabled = true;
+        GetComponent<Controls>().Pause(true);
     }
 
 

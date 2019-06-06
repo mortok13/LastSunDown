@@ -5,10 +5,18 @@ using UnityEngine;
 public class PlayerTrackRotation : MonoBehaviour
 {
     [SerializeField]
-    private BoxCollider trigger;
+    public BoxCollider trigger;
     void Awake()
     {
     //    Physics.IgnoreLayerCollision(9,10);
+    }
+
+    void OnCollisionEnter(Collision other)
+    {
+        if(other.transform.tag == "Player")
+        {
+            other.transform.GetComponent<Moving>().gameOver();
+        }
     }
     void OnTriggerEnter(Collider other)
     {
@@ -28,10 +36,6 @@ public class PlayerTrackRotation : MonoBehaviour
                 break;
             }
         }
-    }
-    void OnTriggerStay(Collider other)
-    {
-                
     }
 
     void OnTriggerExit(Collider other)

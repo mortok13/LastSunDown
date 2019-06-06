@@ -9,7 +9,7 @@ public class SpeedControl : MonoBehaviour
     private static Rigidbody PlayerRB;
     void Awake()
     {
-        maxSpeed = 100f;
+        maxSpeed = 60f;
         PlayerRB = GameObject.FindGameObjectWithTag("Player").GetComponent<Rigidbody>();
     }
     void FixedUpdate()

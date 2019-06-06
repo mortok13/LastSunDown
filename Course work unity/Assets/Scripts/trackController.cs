@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 public class trackController : MonoBehaviour
 {
+    private GameObject player;
     [SerializeField]
     private Block[] TRotBlocks;
     [SerializeField]
@@ -24,12 +25,15 @@ public class trackController : MonoBehaviour
     //main track GO array
     private GameObject curTrackCluster;
     private int rSeed;
+    private static Vector2 TRotRoadLeftCurPoint;
+    private static Vector2 TRotRoadRightCurPoint;
+    private static Vector2 TRotLeftBGCurPoint;
                         // x, z
+    private static Vector2 TRotRightBGCurPoint;
     private static Vector2 leftBGCurPoint;
     private static Vector2 rightBGCurPoint;
                             // x, z
     private static Vector2 roadCurPoint;
-    private static int deleteIndex;
     private static float roadAngle;
     //TODO: Сократить deltaRoadPoint до двух элементов(оставить [0] и [2])
     private Vector2[] deltaRoadPoint = {new Vector2(1,0), new Vector2(0,1), new Vector2(-1,0), new Vector2(0, -1)};
@@ -40,8 +44,6 @@ public class trackController : MonoBehaviour
                                                 //false - left, right - true
     void CreateSingleRot(GameObject resultContainer,int indexX, bool side)
     {
-        
-        int indexY = -1;
         Vector3 resContTrnsfrm = resultContainer.transform.position;
         switch(indexX)
         {
@@ -49,10 +51,9 @@ public class trackController : MonoBehaviour
             //CreateRotCluster(indexX, 1 - indexY % 3)
                 if(!side)       // up
                 {
-                    indexY = 1;
                     leftBGCurPoint.x = resContTrnsfrm.x - 1;
                                                         //
-                    leftBGCurPoint.y += resContTrnsfrm.z + 0.5f + lastPlacedLeftBGBlock.sizeXZ.y - 1;
+                    leftBGCurPoint.y = resContTrnsfrm.z + 0.5f + lastPlacedLeftBGBlock.sizeXZ.y;
                     rightBGCurPoint.x = resContTrnsfrm.x + 1;
                     rightBGCurPoint.y = resContTrnsfrm.z - 0.5f;
                 }
@@ -60,7 +61,6 @@ public class trackController : MonoBehaviour
             case 1:
                 if(!side)       // left
                 {
-                    indexY = 2;
                     while(rightBGCurPoint.y < roadCurPoint.y)
                     {
                         int temp = Random.Range(0, backgroundBlocks.Length);  
@@ -73,7 +73,6 @@ public class trackController : MonoBehaviour
                 }
                 else            // right
                 {
-                    indexY = 0;
                     while(leftBGCurPoint.y < resContTrnsfrm.y + 2)
                     {
                         int temp = Random.Range(0, backgroundBlocks.Length);  
@@ -88,7 +87,6 @@ public class trackController : MonoBehaviour
             case 2:
                 if(side)          // up
                 {
-                    indexY = 1;
                     leftBGCurPoint.x = resContTrnsfrm.x - 1;
                     leftBGCurPoint.y = resContTrnsfrm.z - 0.5f;
                     rightBGCurPoint.x = resContTrnsfrm.x + 1;
@@ -96,7 +94,6 @@ public class trackController : MonoBehaviour
                 }
                 break;
         }
-        Debug.Log("Rotation case: " + indexX + " - " + indexY);
         NotRotChance = 4.8f;
     }
     //////////////////////////////////////////////////////////////////////////////
@@ -110,13 +107,13 @@ public class trackController : MonoBehaviour
         
         set
         {
-            if(value > (int)RotModes.down)
+            if(value > (int)RotModes.left)
             {
                 _curRotMode = (int)RotModes.right;
             }
             else if(value < (int)RotModes.right)
             {
-                _curRotMode = (int)RotModes.down;
+                _curRotMode = (int)RotModes.left;
             }
             else
             {
@@ -152,27 +149,17 @@ public class trackController : MonoBehaviour
             _isWaiting = value;
         }
     }
-    private static bool _chosenSide;
-    public static bool ChosenSide
-    {
-        get
-        {
-            return _chosenSide;
-        }
-        set
-        {
-            _chosenSide = value;
-            IsWaiting = false;
-        }
-    }
     public int getSeed()
     {
         return rSeed;
     }
+
+    private bool isLastTDeadEnd;
     void Awake()
     {
+        isLastTDeadEnd = false;
+        player = GameObject.FindWithTag("Player");
         track = new Queue<GameObject>();
-        _chosenSide = false;
         _isWaiting = false;
         NotRotChance = 2.8f;
         curRotMode = (int)RotModes.right;
@@ -180,7 +167,6 @@ public class trackController : MonoBehaviour
         leftBGCurPoint.y = 1;
         roadCurPoint.x = 1;
         roadCurPoint.y = 0;
-        deleteIndex = 0;
         rSeed = Mathf.FloorToInt(System.DateTime.Now.Millisecond * 
                                  (System.DateTime.Now.Second+1) * 
                                  (System.DateTime.Now.Minute+1) * 
@@ -208,6 +194,7 @@ public class trackController : MonoBehaviour
       //  Create();Create();Create();Create();Create();Create();Create();Create();Create();Create();Create();Create();Create();Create();Create();Create();Create();Create();Create();Create();Create();Create();Create();Create();
        // Create();Create();Create();Create();Create();Create();Create();Create();Create();Create();Create();Create();Create();Create();Create();Create();Create();Create();Create();Create();Create();Create();Create();Create();
         StartCoroutine("ControlGenerate");
+        StartCoroutine("ControlDelete");
         //RunStats.Distance = 5;
 
        // Destroy(track[1]);
@@ -244,6 +231,7 @@ public class trackController : MonoBehaviour
                 float rightOrLeft;
                 switch(_curRotMode)
                 {
+                    //> _|_
                     case 0:
                         curTrackCluster = Instantiate(TRotBlocks[temp].block, new Vector3(roadCurPoint.x, 0, roadCurPoint.y), Quaternion.Euler(0, 180, 0), transform);
                         tmpBGCurPoint = new Vector2(leftBGCurPoint.x, leftBGCurPoint.y + lastPlacedLeftBGBlock.sizeXZ.y);
@@ -252,6 +240,9 @@ public class trackController : MonoBehaviour
                         temp = Random.Range(0, backgroundBlocks.Length);
                         Instantiate(backgroundBlocks[temp].block, new Vector3(tmpBGCurPoint.x, 0, tmpBGCurPoint.y + backgroundBlocks[temp].sizeXZ.x/2), Quaternion.Euler(0,-90,0), curTrackCluster.transform);
                         tmpBGCurPoint.y += backgroundBlocks[temp].sizeXZ.x;
+                        TRotLeftBGCurPoint = new Vector2(tmpBGCurPoint.x, tmpBGCurPoint.y);
+
+
                         leftBGCurPoint.x++;
                         CreateBackground();
                         rightBGCurPoint = new Vector2(leftBGCurPoint.x - lastPlacedLeftBGBlock.sizeXZ.x + 0.5f, leftBGCurPoint.y - 0.5f + lastPlacedLeftBGBlock.sizeXZ.y);
@@ -268,14 +259,18 @@ public class trackController : MonoBehaviour
                                 Instantiate(coins[Random.Range(0, coins.Length)], new Vector3(roadCurPoint.x, 0, i), Quaternion.Euler(0, 90, 0), curTrackCluster.transform);
                             }
                         }
+                        TRotRoadLeftCurPoint = new Vector2(roadCurPoint.x, Mathf.Ceil(rightOrLeft));
+                        
                         roadCurPoint.x++;
                         CreateRoad();
+                        roadCurPoint.x--;
                     break;
                     case 1:
                         temp = Random.Range(0, 2);
                         //temp = 0;
                         switch(temp)
                         {
+                            //|-
                             case 0:
                             if(roadCurPoint.y < rightBGCurPoint.y + 0.5f)
                             {
@@ -287,7 +282,9 @@ public class trackController : MonoBehaviour
                             temp = Random.Range(0, backgroundBlocks.Length);
                             Instantiate(backgroundBlocks[temp].block, new Vector3(tmpBGCurPoint.x + backgroundBlocks[temp].sizeXZ.x/2, 0, tmpBGCurPoint.y), Quaternion.identity, curTrackCluster.transform);
                             tmpBGCurPoint.x += backgroundBlocks[temp].sizeXZ.x;
+                            TRotLeftBGCurPoint = new Vector2(tmpBGCurPoint.x, tmpBGCurPoint.y);
                             rightBGCurPoint.y = tmpBGCurPoint.y + backgroundBlocks[temp].sizeXZ.y - 0.5f;
+
                             for(int i = (int)roadCurPoint.x + 1; i < tmpBGCurPoint.x; i++)
                             {
                                 temp = Random.Range(0, roadBlocks.Length);
@@ -297,8 +294,9 @@ public class trackController : MonoBehaviour
                                     Instantiate(coins[Random.Range(0, coins.Length)], new Vector3(i, 0, roadCurPoint.y), Quaternion.identity, curTrackCluster.transform);
                                 }
                             }
+                            TRotRoadRightCurPoint = new Vector2(Mathf.Ceil(tmpBGCurPoint.x), roadCurPoint.y);
                             roadCurPoint.y++;
-                            for(int i = (int)roadCurPoint.y; i <= tmpBGCurPoint.y - 0.5f + backgroundBlocks[temp].sizeXZ.y; i++)
+                            for(int i = (int)(roadCurPoint.y); i < tmpBGCurPoint.y - 0.5f + backgroundBlocks[temp].sizeXZ.y; i++)
                             {
                                 temp = Random.Range(0, roadBlocks.Length);
                                 Instantiate(roadBlocks[temp].block, new Vector3(roadCurPoint.x, 0, i), Quaternion.Euler(0, roadAngle, 0), curTrackCluster.transform);
@@ -308,20 +306,22 @@ public class trackController : MonoBehaviour
                                 }
                                 roadCurPoint.y++;
                             }
+                            roadCurPoint.y--;
                           //  rightBGCurPoint.y = tmpBGCurPoint.y + 0.5f;
-                            
+
                             break;
-                            // доделать нужно
+                            // '|'
                             case 1:
                                 // while(roadCurPoint.y < leftBGCurPoint.y || roadCurPoint.y < rightBGCurPoint.y)
                                 // {
                                 //     CreateRoadBlock();
                                 // }
+                                isLastTDeadEnd = true;
                                 temp = Random.Range(0, TRotBlocks.Length);
                                 curTrackCluster = Instantiate(TRotBlocks[temp].block, new Vector3(roadCurPoint.x, 0, roadCurPoint.y), Quaternion.identity, transform);
-                                tmpBGCurPoint = new Vector2(roadCurPoint.x, roadCurPoint.y + 1);
+                                tmpBGCurPoint = new Vector2(roadCurPoint.x - 0.5f, roadCurPoint.y + 1);
                                 temp = Random.Range(0, backgroundBlocks.Length);
-                                Instantiate(backgroundBlocks[temp].block, new Vector3(tmpBGCurPoint.x, 0, tmpBGCurPoint.y), Quaternion.identity, curTrackCluster.transform);
+                                Instantiate(backgroundBlocks[temp].block, new Vector3(tmpBGCurPoint.x += backgroundBlocks[temp].sizeXZ.x/2, 0, tmpBGCurPoint.y), Quaternion.identity, curTrackCluster.transform);
                                 Vector2 scndTmpBGCurPoint = new Vector2(tmpBGCurPoint.x, tmpBGCurPoint.y);
                                 tmpBGCurPoint.x += backgroundBlocks[temp].sizeXZ.x/2;
                                 scndTmpBGCurPoint.x -= backgroundBlocks[temp].sizeXZ.x/2;
@@ -331,7 +331,10 @@ public class trackController : MonoBehaviour
                                 temp = Random.Range(0, backgroundBlocks.Length);
                                 Instantiate(backgroundBlocks[temp].block, new Vector3(scndTmpBGCurPoint.x - backgroundBlocks[temp].sizeXZ.x/2, 0, tmpBGCurPoint.y), Quaternion.identity, curTrackCluster.transform);
                                 scndTmpBGCurPoint.x -= backgroundBlocks[temp].sizeXZ.x;
-                                for(int i = (int)roadCurPoint.x + 1; i <= tmpBGCurPoint.x; i++)
+                                TRotRightBGCurPoint = new Vector2(scndTmpBGCurPoint.x, scndTmpBGCurPoint.y);
+                                TRotLeftBGCurPoint = new Vector2(tmpBGCurPoint.x, tmpBGCurPoint.y);
+
+                                for(int i = (int)roadCurPoint.x + 1; i < tmpBGCurPoint.x; i++)
                                 {
                                     temp = Random.Range(0, roadBlocks.Length);
                                     Instantiate(roadBlocks[temp].block, new Vector3(i, 0, roadCurPoint.y), Quaternion.identity, curTrackCluster.transform);
@@ -340,7 +343,9 @@ public class trackController : MonoBehaviour
                                         Instantiate(coins[Random.Range(0, coins.Length)], new Vector3(i, 0, roadCurPoint.y), Quaternion.Euler(0, roadAngle, 0), curTrackCluster.transform);
                                     }
                                 }
-                                for(int i = (int)roadCurPoint.x - 1; i >= scndTmpBGCurPoint.x; i--)
+                                TRotRoadRightCurPoint = new Vector2(tmpBGCurPoint.x + 0.5f, roadCurPoint.y);
+                                TRotRoadLeftCurPoint = new Vector2(scndTmpBGCurPoint.x - 0.5f, roadCurPoint.y);
+                                for(int i = (int)roadCurPoint.x - 1; i > scndTmpBGCurPoint.x; i--)
                                 {
                                     temp = Random.Range(0, roadBlocks.Length);
                                     Instantiate(roadBlocks[temp].block, new Vector3(i, 0, roadCurPoint.y), Quaternion.identity, curTrackCluster.transform);
@@ -350,6 +355,7 @@ public class trackController : MonoBehaviour
                                     }
                                 }
                             break;
+                            //-|
                             case 2:
                                 if(roadCurPoint.y < leftBGCurPoint.y + 0.5f)
                                 {
@@ -361,6 +367,7 @@ public class trackController : MonoBehaviour
                                 temp = Random.Range(0, backgroundBlocks.Length);
                                 Instantiate(backgroundBlocks[temp].block, new Vector3(tmpBGCurPoint.x - backgroundBlocks[temp].sizeXZ.x/2, 0, tmpBGCurPoint.y), Quaternion.identity, curTrackCluster.transform);
                                 tmpBGCurPoint.x -= backgroundBlocks[temp].sizeXZ.x;
+                                TRotRightBGCurPoint = new Vector2(tmpBGCurPoint.x, tmpBGCurPoint.y);
                                 leftBGCurPoint.y = tmpBGCurPoint.y + backgroundBlocks[temp].sizeXZ.y - 0.5f;
                                 for(int i = (int)roadCurPoint.x - 1; i > tmpBGCurPoint.x; i--)
                                 {
@@ -371,6 +378,7 @@ public class trackController : MonoBehaviour
                                         Instantiate(coins[Random.Range(0, coins.Length)], new Vector3(i, 0, roadCurPoint.y), Quaternion.identity, curTrackCluster.transform);
                                     }
                                 }
+                                TRotRoadLeftCurPoint = new Vector2(Mathf.Ceil(tmpBGCurPoint.x), roadCurPoint.y);
                                 roadCurPoint.y++;
                                 for(int i = (int)roadCurPoint.y; i <= tmpBGCurPoint.y - 0.5f + backgroundBlocks[temp].sizeXZ.y; i++)
                                 {
@@ -382,10 +390,12 @@ public class trackController : MonoBehaviour
                                     }
                                     roadCurPoint.y++;
                                 }   
+
+
                             break;
                         }
                     break;
-                    
+                    //_|_<
                     case 2:
                         curTrackCluster = Instantiate(TRotBlocks[temp].block, new Vector3(roadCurPoint.x, 0, roadCurPoint.y), Quaternion.Euler(0, 180, 0), transform);
                         tmpBGCurPoint = new Vector2(rightBGCurPoint.x, rightBGCurPoint.y + lastPlacedRightBGblock.sizeXZ.y);
@@ -394,7 +404,9 @@ public class trackController : MonoBehaviour
                         temp = Random.Range(0, backgroundBlocks.Length);
                         Instantiate(backgroundBlocks[temp].block, new Vector3(tmpBGCurPoint.x, 0, tmpBGCurPoint.y + backgroundBlocks[temp].sizeXZ.x/2), Quaternion.Euler(0, 90, 0), curTrackCluster.transform);
                         tmpBGCurPoint.y += backgroundBlocks[temp].sizeXZ.x;
+                        TRotRightBGCurPoint = new Vector2(tmpBGCurPoint.x, tmpBGCurPoint.y);
                         rightBGCurPoint.x--;
+
                         CreateBackground();
                         leftBGCurPoint = new Vector2(rightBGCurPoint.x + lastPlacedRightBGblock.sizeXZ.x - 0.5f, rightBGCurPoint.y - 0.5f + lastPlacedRightBGblock.sizeXZ.y);
                         temp = Random.Range(0, backgroundBlocks.Length);
@@ -410,12 +422,14 @@ public class trackController : MonoBehaviour
                                 Instantiate(coins[Random.Range(0, coins.Length)], new Vector3(roadCurPoint.x, 0, i), Quaternion.Euler(0, 90, 0), curTrackCluster.transform);
                             }
                         }
+                        TRotRoadRightCurPoint = new Vector2(roadCurPoint.x, Mathf.Ceil(rightOrLeft));
                         roadCurPoint.x--;
                         CreateRoad();
+                        roadCurPoint.x++;
                     break;
                 }
                 IsWaiting = true;
-                NotRotChance = 4.8f;
+                NotRotChance = 5.8f;
             }
             else
             {
@@ -426,7 +440,7 @@ public class trackController : MonoBehaviour
                     //case left
                     case 0:
                         curTrackCluster.tag = "rotLeft";
-                        CreateSingleRot(curTrackCluster,curRotMode, false);  
+                        CreateSingleRot(curTrackCluster, _curRotMode, false);  
                         curRotMode++;
                     break;
                     //case right
@@ -441,7 +455,7 @@ public class trackController : MonoBehaviour
                         curTrackCluster.tag = "rotRight";
                         curTrackCluster.transform.Rotate(0,180,0);
 
-                        CreateSingleRot(curTrackCluster, curRotMode, true);  
+                        CreateSingleRot(curTrackCluster, _curRotMode, true);  
                         curRotMode--;
                     }
                     else
@@ -453,14 +467,14 @@ public class trackController : MonoBehaviour
                         }
                         curTrackCluster.tag = "rotLeft";
                         curTrackCluster.transform.Rotate(0,-90,0);
-                        CreateSingleRot(curTrackCluster, curRotMode, false);  
+                        CreateSingleRot(curTrackCluster, _curRotMode, false);  
                         curRotMode++;
                     }
                     break;
                     case 2:
                         curTrackCluster.tag = "rotRight";
                         curTrackCluster.transform.Rotate(0,90, 0);
-                        CreateSingleRot(curTrackCluster, curRotMode, true);
+                        CreateSingleRot(curTrackCluster, _curRotMode, true);
                         curRotMode--;
                     break;
                     case 3:
@@ -471,33 +485,78 @@ public class trackController : MonoBehaviour
         }
         track.Enqueue(curTrackCluster);
     }
-
+    
+    public void SetRotationMode(int side, GameObject rotTrigger)
+    {
+        if(side == -2)
+        {
+            rotTrigger.GetComponent<PlayerTrackRotation>().trigger.enabled = false;
+            if(isLastTDeadEnd)
+            {
+                return;
+            }
+            side = 0;
+        }
+        int tmp = _curRotMode;
+        curRotMode += side;
+        if(tmp != _curRotMode)
+        {
+            switch(tmp)
+            {
+                case 0:
+                    leftBGCurPoint = new Vector2(TRotLeftBGCurPoint.x, TRotLeftBGCurPoint.y);
+                    roadCurPoint = new Vector2(TRotRoadLeftCurPoint.x, TRotRoadLeftCurPoint.y);
+                    rotTrigger.tag = "rotLeft";
+                break;
+                case 1:
+                    if(_curRotMode == 2)
+                    {
+                        rightBGCurPoint = new Vector2(TRotRightBGCurPoint.x, TRotRightBGCurPoint.y);
+                        roadCurPoint = new Vector2(TRotRoadLeftCurPoint.x, TRotRoadLeftCurPoint.y);
+                        rotTrigger.tag = "rotLeft";
+                    }
+                    else
+                    {
+                        leftBGCurPoint = new Vector2(TRotLeftBGCurPoint.x, TRotLeftBGCurPoint.y);
+                        roadCurPoint = new Vector2(TRotRoadRightCurPoint.x, TRotRoadRightCurPoint.y);
+                        rotTrigger.tag = "rotRight";
+                    }
+                break;
+                case 2:
+                    rightBGCurPoint = new Vector2(TRotRightBGCurPoint.x, TRotRightBGCurPoint.y);
+                    roadCurPoint = new Vector2(TRotRoadRightCurPoint.x, TRotRoadRightCurPoint.y);
+                    rotTrigger.tag = "rotRight";
+                break;
+            }
+        }
+        _isWaiting = false;
+        isLastTDeadEnd = false;
+    }
     private void CreateBackground()
     {
         int temp = Random.Range(0, backgroundBlocks.Length);
-        switch(curRotMode)
+        switch(_curRotMode)
         {
             case 0:
                 Instantiate(backgroundBlocks[temp].block, new Vector3 (leftBGCurPoint.x + backgroundBlocks[temp].sizeXZ.x/2, 0, leftBGCurPoint.y), Quaternion.Euler(0, backgroundAngle, 0), curTrackCluster.transform);
                 leftBGCurPoint.x += backgroundBlocks[temp].sizeXZ.x;
                 lastPlacedLeftBGBlock = backgroundBlocks[temp];
                 break;
-            case 1:
-                while(leftBGCurPoint.y < roadCurPoint.y + 0.5f)
-                {   
-                    Instantiate(backgroundBlocks[temp].block, new Vector3 (leftBGCurPoint.x, 0, leftBGCurPoint.y + backgroundBlocks[temp].sizeXZ.x/2), Quaternion.Euler(0, backgroundAngle, 0), curTrackCluster.transform);
-                    leftBGCurPoint.y += backgroundBlocks[temp].sizeXZ.x;
-                    lastPlacedLeftBGBlock = backgroundBlocks[temp];
-                    temp = Random.Range(0, backgroundBlocks.Length);
-
-                }
-                while(rightBGCurPoint.y < roadCurPoint.y+0.5f)
-                {
-                    Instantiate(backgroundBlocks[temp].block, new Vector3 (rightBGCurPoint.x, 0, rightBGCurPoint.y + backgroundBlocks[temp].sizeXZ.x/2), Quaternion.Euler(0, backgroundAngle + 180, 0), curTrackCluster.transform);
-                    rightBGCurPoint.y += backgroundBlocks[temp].sizeXZ.x;
-                    lastPlacedRightBGblock = backgroundBlocks[temp];
-                    temp = Random.Range(0, backgroundBlocks.Length);
-                }
+            case 1: 
+                    while(rightBGCurPoint.y < roadCurPoint.y - 3)
+                    { 
+                        Instantiate(backgroundBlocks[temp].block, new Vector3 (rightBGCurPoint.x, 0, rightBGCurPoint.y + backgroundBlocks[temp].sizeXZ.x/2), Quaternion.Euler(0, backgroundAngle + 180, 0), curTrackCluster.transform);
+                        rightBGCurPoint.y += backgroundBlocks[temp].sizeXZ.x;
+                        lastPlacedRightBGblock = backgroundBlocks[temp];
+                        temp = Random.Range(0, backgroundBlocks.Length);
+                    }
+                    while(leftBGCurPoint.y < roadCurPoint.y - 3)
+                    {
+                        Instantiate(backgroundBlocks[temp].block, new Vector3 (leftBGCurPoint.x, 0, leftBGCurPoint.y + backgroundBlocks[temp].sizeXZ.x/2), Quaternion.Euler(0, backgroundAngle, 0), curTrackCluster.transform);
+                        leftBGCurPoint.y += backgroundBlocks[temp].sizeXZ.x;
+                        lastPlacedLeftBGBlock = backgroundBlocks[temp];
+                        temp = Random.Range(0, backgroundBlocks.Length);
+                    }
                 break;
             case 2:
                     // Debug.Log("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
@@ -541,7 +600,7 @@ public class trackController : MonoBehaviour
                 }
                 break;
             case 1:
-                leftOrRight = leftBGCurPoint.y < rightBGCurPoint.y ? rightBGCurPoint.y : leftBGCurPoint.y;
+                leftOrRight = leftBGCurPoint.y < rightBGCurPoint.y ? leftBGCurPoint.y : rightBGCurPoint.y;
                 for(int i = (int)roadCurPoint.y; i < leftOrRight; i++ )
                 {
                     CreateRoadBlock();
@@ -577,7 +636,18 @@ public class trackController : MonoBehaviour
 
     private IEnumerator ControlDelete()
     {
-        yield return null;
+        while(true)
+        {
+            if( trackClusterForDelete != null && Vector3.Distance(player.transform.position, trackClusterForDelete.transform.position) > 10f)
+            {
+                Destroy(trackClusterForDelete.gameObject);
+                if(track.Count != 0) 
+                {
+                    trackClusterForDelete = track.Dequeue();
+                }
+            }
+            yield return null;
+        }
     }
     private IEnumerator ControlGenerate()
     {

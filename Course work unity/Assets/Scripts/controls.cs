@@ -9,11 +9,19 @@ using UnityEngine.SceneManagement;
 
 public class Controls : MonoBehaviour
 {
+    private int chosenSide;
+    private static GameObject rotButtons;
     private static Text resumeText;
     private static GameObject menuPanel;
     public static bool forward, back, rotLeft, rotRight;
     void Start()
     {
+        chosenSide = -2;
+        rotButtons = GameObject.Find("rotationButtons");
+        if(rotButtons != null)
+        {
+            rotButtons.SetActive(false);
+        }
         forward = back = rotLeft = rotRight = false; 
         menuPanel = GameObject.Find("PauseMenu");
         if(menuPanel != null)
@@ -31,18 +39,57 @@ public class Controls : MonoBehaviour
             }
         }
     }
-
+    public void SwitchSingleRotButtons(GameObject trigger)
+    {
+        Debug.Log(trigger.name);
+        if(trigger.name == "rotTriggersOn")
+        {
+            rotButtons.SetActive(true);
+        }
+        else
+        {
+            rotButtons.SetActive(false);
+            switch(chosenSide)
+            {
+                case -2:
+                trigger.transform.parent.gameObject.GetComponent<PlayerTrackRotation>().trigger.enabled = false;
+                break;
+                case -1:
+                trigger.transform.parent.tag = "rotRight";
+                break;
+                case 1:
+                trigger.transform.parent.tag = "rotLeft";
+                break;
+            }
+            chosenSide = -2;
+        }
+    }
+    public void SwitchRotButtons(GameObject trigger)
+    {
+        Debug.Log(trigger.name);
+        if(trigger.name == "rotTriggersOn")
+        {
+            rotButtons.SetActive(true);
+        }
+        else
+        {
+            rotButtons.SetActive(false);
+            GameObject.Find("Track").GetComponent<trackController>().SetRotationMode(chosenSide, trigger.transform.parent.gameObject);
+            chosenSide = -2;
+        }
+    }
     public void Reset()
     {
         Start();
     }
-
     public void Pause(bool endGame = false)
     {
         if(endGame)
         {
-            GameObject.Find("Pause").GetComponent<Text>().text = "Game Over";
             menuPanel.SetActive(true);
+            GameObject.Find("Pause").GetComponent<Text>().text = "Game Over";
+            // ???
+            GameObject.Find("PauseButton").SetActive(false);
             return;
         }
         menuPanel.SetActive(!menuPanel.activeSelf);
@@ -126,5 +173,8 @@ public class Controls : MonoBehaviour
         rotRight = false;
     }
 
-
+    public void SetChosenSide(int sideMode)
+    {
+        chosenSide = sideMode;
+    }
 }
