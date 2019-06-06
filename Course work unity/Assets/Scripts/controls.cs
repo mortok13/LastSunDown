@@ -37,8 +37,14 @@ public class Controls : MonoBehaviour
         Start();
     }
 
-    public void Pause()
+    public void Pause(bool endGame = false)
     {
+        if(endGame)
+        {
+            GameObject.Find("Pause").GetComponent<Text>().text = "Game Over";
+            menuPanel.SetActive(true);
+            return;
+        }
         menuPanel.SetActive(!menuPanel.activeSelf);
         if(menuPanel.activeSelf)
         {
@@ -66,6 +72,9 @@ public class Controls : MonoBehaviour
 
     public void Restart()
     {
+        resumeText.text = "";
+        StopAllCoroutines();
+        GameObject.Find("Pause").GetComponent<Text>().text = "Pause";
         SceneManager.LoadScene(SceneManager.GetActiveScene().name, LoadSceneMode.Single);
         Time.timeScale = 1;
         //DontDestroyOnLoad(GameObject.Find("Canvas"));

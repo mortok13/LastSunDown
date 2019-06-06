@@ -11,6 +11,7 @@ ModelImporter:
     2300000: T_cross:pCube111
     3300000: T_cross:pCube111
     4300000: T_cross:pCube111
+    6400000: T_cross:pCube111
   externalObjects:
   - first:
       type: UnityEngine:Material
@@ -49,7 +50,7 @@ ModelImporter:
     lODScreenPercentages: []
     globalScale: 1
     meshCompression: 0
-    addColliders: 0
+    addColliders: 1
     useSRGBMaterialColor: 1
     importVisibility: 1
     importBlendShapes: 1

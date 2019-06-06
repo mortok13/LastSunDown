@@ -9,7 +9,7 @@ public static class RunStats
     private static Text moneyHUDTextBox = GameObject.Find("Money").gameObject.GetComponent<Text>();
     private static Text distanceMenuTextBox = GameObject.Find("DistanceTextBox").gameObject.GetComponent<Text>();
     private static Text moneyMenuTextBox = GameObject.Find("MoneyTextBox").gameObject.GetComponent<Text>();
-    public static string seed = null;
+    private static string seed = null;
     public static string Seed
     {
         get

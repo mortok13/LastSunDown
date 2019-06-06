@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PlayerTrackRotation : MonoBehaviour
 {
+    [SerializeField]
+    private BoxCollider trigger;
     void Awake()
     {
     //    Physics.IgnoreLayerCollision(9,10);
